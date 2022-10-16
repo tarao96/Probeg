@@ -1,9 +1,13 @@
 <template>
     <header>
-      <div class="logo">
-        <img src="@/assets/images/logo2.png" alt="ロゴ画像">
-      </div>
-      <h1 class="title">Probeg</h1>
+        <div class="logo">
+          <nuxt-link to="/">
+            <img src="@/assets/images/logo2.png" alt="ロゴ画像">
+          </nuxt-link>
+        </div>
+        <nuxt-link to="/">
+          <h1 class="title">Probeg</h1>
+        </nuxt-link>
     </header>
 </template>
 
