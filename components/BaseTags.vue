@@ -8,7 +8,7 @@
             <div class="tags-wrapper">
             <ul>
                 <li v-for="tag in tags" :key="tag.id">
-                    <p @click="sendTagName(tag.name)">{{ tag.name }}</p>
+                    <p v-on:click="sendTagName(tag.name)">{{ tag.name }}</p>
                 </li>
             </ul>
             </div>

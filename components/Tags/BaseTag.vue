@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="article-tag">
-            <nuxt-link to="#" v-for="tag in tags" :key="tag.id">{{ tag }}</nuxt-link>
+            <nuxt-link to="#" v-for="tag in tags" :key="tag.id">{{ tag.name }}</nuxt-link>
         </div>
     </div>
 </template>

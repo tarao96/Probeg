@@ -5,16 +5,16 @@
       <div class="row">
         <div v-for="article in searchArticles" :key="article.id" class="card">
           <div class="text">
-            <nuxt-link :to="`/contents/` + article.id">
+            <a :href="'/contents/' + article.id + '/'">
               <div class="article-img">
-                <img :src="article.img" class="article-img" alt="コンテンツ画像">
+                <img :src="article.eyecatch.url" class="article-img" alt="コンテンツ画像">
               </div>
-              <span>{{ article.date }}&emsp;{{ article.author }}</span>
+              <span>{{ article.updatedAt }}&emsp;{{ article.author.name }}</span>
               <div class="article-title">
                 <nuxt-link to="/contents" class="content-title"><b>{{ article.title }}</b></nuxt-link>
               </div>
-            </nuxt-link>
-            <base-tag :tags="article.tags"></base-tag>
+            </a>
+            <base-tag :tags="article.category"></base-tag>
           </div>
         </div>
       </div>
@@ -41,57 +41,56 @@
 
   <base-tags 
     :tags="tags"
-    @clickTag="searchTag"></base-tags>
+    @clickTag="searchTag"
+    >
+  </base-tags>
   
   <base-about></base-about>
 </div>
 </template>
 
 <script>
+import axios from "axios";
 import BaseTag from '../components/Tags/BaseTag.vue'
+
 export default {
   components: { BaseTag },
   layout: 'BaseLayout',
   data() {
     return {
-      articles: [
-        {
-          id: 1, img: 'https://picsum.photos/id/237/200/300', date: '2022.10.15', author: 'Keito Shitara', title: 'LaravelでToDoアプリを開発する', name: 'Laravel'
-        },
-        {
-          id: 2, img: 'https://picsum.photos/id/1010/5184/3456', date: '2022.10.14', author: 'Keito Shitara', title: 'Nuxt.jsでToDoアプリを開発する', name: 'Vue.js' 
-        },
-        {
-          id: 3, img: 'https://picsum.photos/id/1005/5760/3840', date: '2022.10.13', author: 'Keito Shitara', title: 'HTML/CSS入門', name: 'HTML' 
-        },
-      ],
+      articles: [],
       searchArticles: [],
-      tags: [
-        {id: 1, name: 'Laravel'},
-        {id: 2, name: 'Vue.js'},
-        {id: 3, name: 'HTML'},
-        {id: 4, name: 'CSS'},
-        {id: 5, name: 'WordPress'},
-        {id: 6, name: 'PHP'},
-        {id: 7, name: 'Laravel'},
-        {id: 8, name: 'Ruby'},
-        {id: 9, name: 'Ruby on Rails'},
-        {id: 10, name: 'Git'},
-        {id: 11, name: 'AWS'}
-      ]
+      tags: []
     }
   },
-  computed: {
+  methods: {
     searchTag(tagName) {
       console.log('searchTagが発火しました');
-      const newArticles = this.articles.filter((article) => {
-        return article.name.indexOf(tagName) !== -1;
+      const searchArticles = this.articles.filter((article) => {
+        const array = [];
+        article.category.forEach((item) => {
+          if (item.name.indexOf(tagName) !== -1) {
+            array.push(tagName);
+          }
+        });
+
+        return array.length > 0;
       });
-      console.log(newArticles);
-      this.searchArticles = newArticles;
+      console.log(searchArticles);
+      this.searchArticles = searchArticles;
     }
   },
-  async asyncData({ app })
+  async asyncData({ $config }) {
+    const res = await Promise.all([
+        axios.get(`${$config.apiUrl}/blogs`, { headers: { 'X-MICROCMS-API-KEY': $config.apiKey } }),
+        axios.get(`${$config.apiUrl}/categories`, { headers: { 'X-MICROCMS-API-KEY': $config.apiKey } })
+      ])
+      return {
+        articles: res[0].data.contents,
+        searchArticles: res[0].data.contents,
+        tags: res[1].data.contents
+      }
+  },
 }
 </script>
 

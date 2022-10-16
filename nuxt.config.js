@@ -1,3 +1,5 @@
+const { API_KEY, API_URL } = process.env
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -14,10 +16,14 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/github-dark.min.css'}
+    ],
     script: [
       { type: 'module', src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js' },
-      { src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js' }
+      { src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js' },
+      { src: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js' }
     ]
   },
 
@@ -46,5 +52,25 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    extend(config, { isDev, isClient }) {
+      // ..
+      config.module.rules.push({
+        test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+        loader: 'file-loader'
+      })
+      // `isDev` が true の場合、webpack を開発モードに設定します。
+      if (isDev) {
+        config.mode = 'development'
+      }
+    }
+  },
+
+  publicRuntimeConfig: {
+    apiUrl: API_URL,
+  },
+
+  privateRuntimeConfig: {
+    apiKey: API_KEY,
+  }
 }
