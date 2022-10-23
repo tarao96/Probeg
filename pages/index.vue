@@ -4,18 +4,20 @@
     <div class="article">
       <div class="row">
         <div v-for="article in searchArticles" :key="article.id" class="card">
-          <div class="text">
             <a :href="'/contents/' + article.id + '/'">
               <div class="article-img">
                 <img :src="article.eyecatch.url" class="article-img" alt="コンテンツ画像">
               </div>
-              <span>{{ article.updatedAt }}&emsp;{{ article.author.name }}</span>
-              <div class="article-title">
-                <nuxt-link to="/contents" class="content-title"><b>{{ article.title }}</b></nuxt-link>
+              <div class="text">
+                <span>{{ article.updatedAt | formatDate }}&emsp;{{ article.author.name }}</span>
+                <div class="article-title">
+                  <nuxt-link to="/contents" class="content-title"><b>{{ article.title }}</b></nuxt-link>
+                </div>
               </div>
             </a>
-            <base-tag :tags="article.category"></base-tag>
-          </div>
+            <div class="tag">
+              <base-tag :tags="article.category"></base-tag>
+            </div>
         </div>
       </div>
 
@@ -82,7 +84,7 @@ export default {
   },
   async asyncData({ $config }) {
     const res = await Promise.all([
-        axios.get(`${$config.apiUrl}/blogs`, { headers: { 'X-MICROCMS-API-KEY': $config.apiKey } }),
+        axios.get(`${$config.apiUrl}/blogs?limit=100`, { headers: { 'X-MICROCMS-API-KEY': $config.apiKey } }),
         axios.get(`${$config.apiUrl}/categories`, { headers: { 'X-MICROCMS-API-KEY': $config.apiKey } })
       ])
       return {
@@ -104,29 +106,35 @@ main {
     .article .row {
       display: flex;
       justify-content: space-around;
+      flex-wrap: wrap;
       margin: 50px 0;
+      gap: 50px 10px;
       .card {
         display: flex;
         flex-direction: column;
         width: 400px;
-        height: 600px;
+        height: 530px;
         padding: 10px;
         border: 1px solid rgba(182, 178, 178, 0.903);
         box-shadow: 5px 5px 7px rgba(197, 189, 189, 0.774);
-        .text {
-          padding: 20px 30px 40px 30px;
-          background-color: #fff;
-          a:hover {
-            opacity: 0.8;
-          }
-          .article-img {
+        .article-img {
             height: 300px;
             margin-bottom: 20px;
+            padding: 0;
             img {
               height: 100%;
               width: 100%;
               object-fit: cover;
             }
+        }
+        .tag {
+          padding: 0 10px;
+        }
+        .text {
+          padding: 0px;
+          background-color: #fff;
+          a:hover {
+            opacity: 0.8;
           }
           span {
             display: block;

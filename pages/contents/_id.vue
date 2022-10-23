@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="heading">
                     <img :src="article.eyecatch.url" alt="コンテンツ画像">
-                    <span class="date">{{ article.updatedAt }}</span>
+                    <span class="date">{{ article.updatedAt | formatDate }}</span>
                     <h1 class="title">{{ article.title }}</h1>
                     <div class="text">
                         <div class="author">
@@ -19,8 +19,15 @@
                     <div class="contents" v-html="body">
                     </div>
                 </div>
+
             </div>
         </article>
+        <div class="latest-articles">
+            <latest-articles :articles="latestArticles"></latest-articles>
+        </div>
+        <div class="related-articles">
+            <related-articles :articles="articles"></related-articles>
+        </div>
     </div>
 </template>
 
@@ -29,32 +36,50 @@ import axios from "axios"
 import cheerio from 'cheerio';
 import hljs from 'highlight.js'
 import BaseTag from '@/components/Tags/BaseTag.vue'
+import LatestArticles from '@/components/LatestArticles.vue';
+import RelatedArticles from '@/components/RelatedArticles.vue';
 
 export default ({
     layout: 'BaseLayout',
-    components: { BaseTag },
+    components: { BaseTag, LatestArticles, RelatedArticles },
     data() {
         return {
+            latestArticles: [],
             article: [],
-            body: []
+            body: [],
         }
     },
     async asyncData({ $config, params }) {
-        const res = await axios.get(`${$config.apiUrl}/blogs/${params.id}`, { 
+        const articleRes = await axios.get(`${$config.apiUrl}/blogs/${params.id}`, { 
             headers: { 'X-MICROCMS-API-KEY': $config.apiKey } 
-            })
+        })
 
-        const $ = cheerio.load(res.data.content);
+        const latestArticlesRes = await axios.get(`${$config.apiUrl}/blogs?limit=6`, { 
+            headers: { 'X-MICROCMS-API-KEY': $config.apiKey } 
+        })
+
+        const array = [];
+        articleRes.data.category.forEach((item) => {
+            const name = item.name;
+            array.push(name);
+        });
+
+        const articlesByTitle = await axios.get(`${$config.apiUrl}/blogs?filters=title[contains]${array}`, { 
+            headers: { 'X-MICROCMS-API-KEY': $config.apiKey } 
+        })
+
+        const $ = cheerio.load(articleRes.data.content);
         $('pre code').each((_, elm) => {
             const result = hljs.highlightAuto($(elm).text());
             $(elm).html(result.value);
             $(elm).addClass('hljs');
         });
-        console.log($.html());
 
         return {
-            article: res.data,
-            body: $.html()
+            article: articleRes.data,
+            body: $.html(),
+            latestArticles: latestArticlesRes.data.contents,
+            articles: articlesByTitle.data.contents,
         }
     },
 })
@@ -143,6 +168,78 @@ article {
                 code {
                     margin-top: 20px;
                 }
+            }
+        }
+    }
+}
+
+.container {
+    width: 90%;
+    margin: 50px auto;
+    .article {
+        padding: 50px;
+        border: 1px solid rgba(182, 178, 178, 0.903);
+        box-shadow: 5px 5px 7px rgba(197, 189, 189, 0.774);
+        h2 {
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            display: block;
+            width: 110px;
+            height: 4px;
+            background: linear-gradient(to right, rgba(132, 78, 226, 0.826), rgba(232, 130, 218, 0.849));
+            position: absolute;
+            bottom: -10px;
+            left: -5px;
+        }
+        .row {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 50px 0;
+            .article-img {
+                height: 300px;
+                width: 100%;
+                margin-bottom: 10px;
+                padding: 0;
+                img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                }
+                }
+            .card {
+            display: flex;
+            flex-direction: column;
+            width: 30%;
+            height: 500px;
+            padding: 0px;
+            border: 1px solid rgba(182, 178, 178, 0.903);
+            box-shadow: 5px 5px 7px rgba(197, 189, 189, 0.774);
+            .text {
+                padding: 0px 20px;
+                background-color: #fff;
+                height: 450px;
+                a:hover {
+                opacity: 0.8;
+                }
+                span {
+                display: block;
+                color: rgba(136, 132, 132, 0.8);
+                margin-bottom: 10px;
+                }
+                .article-title{
+                margin-bottom: 10px;
+                a {
+                    margin-bottom: 10px;
+                    // border: none;
+                    color: black;
+                    font-size: 1.2rem;
+                }
+                } 
+            }
             }
         }
     }
