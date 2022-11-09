@@ -27,7 +27,7 @@ body {
 }
 
 a {
-  text-decoration: none; 
+  text-decoration: none;
   padding: 8px 15px;
 }
 
@@ -37,5 +37,6 @@ li {
 
 .wrapper {
   width: 100%;
+  background-color: #f9fbfe;
 }
 </style>

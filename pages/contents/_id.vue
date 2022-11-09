@@ -50,13 +50,17 @@ export default ({
         }
     },
     async asyncData({ $config, params }) {
-        const articleRes = await axios.get(`${$config.apiUrl}/blogs/${params.id}`, { 
-            headers: { 'X-MICROCMS-API-KEY': $config.apiKey } 
+        const articleRes = await axios.get(`${$config.apiUrl}/blogs/${params.id}`, {
+            headers: { 'X-MICROCMS-API-KEY': $config.apiKey }
         })
 
-        const latestArticlesRes = await axios.get(`${$config.apiUrl}/blogs?limit=6`, { 
-            headers: { 'X-MICROCMS-API-KEY': $config.apiKey } 
-        })
+        const latestArticlesRes = await axios.get(`${$config.apiUrl}/blogs?limit=6`, {
+            headers: { 'X-MICROCMS-API-KEY': $config.apiKey }
+        });
+
+        const latestArticles = latestArticlesRes.data.contents.filter(item => {
+          return item.id !== params.id;
+        });
 
         const array = [];
         articleRes.data.category.forEach((item) => {
@@ -64,9 +68,13 @@ export default ({
             array.push(name);
         });
 
-        const articlesByTitle = await axios.get(`${$config.apiUrl}/blogs?filters=title[contains]${array}`, { 
-            headers: { 'X-MICROCMS-API-KEY': $config.apiKey } 
-        })
+        const articlesByTitle = await axios.get(`${$config.apiUrl}/blogs?filters=title[contains]${array}`, {
+            headers: { 'X-MICROCMS-API-KEY': $config.apiKey }
+        });
+
+        const relatedArticles = articlesByTitle.data.contents.filter(item => {
+          return item.id !== params.id;
+        });
 
         const $ = cheerio.load(articleRes.data.content);
         $('pre code').each((_, elm) => {
@@ -78,8 +86,8 @@ export default ({
         return {
             article: articleRes.data,
             body: $.html(),
-            latestArticles: latestArticlesRes.data.contents,
-            articles: articlesByTitle.data.contents,
+            latestArticles: latestArticles,
+            articles: relatedArticles,
         }
     },
 })
@@ -137,7 +145,7 @@ article {
                 }
             }
         }
-        .main { 
+        .main {
             padding: 50px 30px;
             .contents {
                 h2 {
@@ -221,7 +229,6 @@ article {
             .text {
                 padding: 0px 20px;
                 background-color: #fff;
-                height: 450px;
                 a:hover {
                 opacity: 0.8;
                 }
@@ -238,7 +245,7 @@ article {
                     color: black;
                     font-size: 1.2rem;
                 }
-                } 
+                }
             }
             }
         }

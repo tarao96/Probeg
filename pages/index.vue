@@ -5,9 +5,9 @@
       <div class="row">
         <div v-for="article in searchArticles" :key="article.id" class="card">
             <a :href="'/contents/' + article.id + '/'">
-              <div class="article-img">
-                <img :src="article.eyecatch.url" class="article-img" alt="コンテンツ画像">
-              </div>
+              <img :src="article.eyecatch.url" class="article-img" alt="コンテンツ画像">
+            </a>
+            <a class="article-content" :href="'/contents/' + article.id + '/'">
               <div class="text">
                 <span>{{ article.updatedAt | formatDate }}&emsp;{{ article.author.name }}</span>
                 <div class="article-title">
@@ -41,12 +41,12 @@
     </div>
   </div>
 
-  <base-tags 
+  <base-tags
     :tags="tags"
     @clickTag="searchTag"
     >
   </base-tags>
-  
+
   <base-about></base-about>
 </div>
 </template>
@@ -96,7 +96,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 main {
   width: 100%;
   margin: 0 auto;
@@ -114,18 +114,24 @@ main {
         flex-direction: column;
         width: 400px;
         height: 530px;
-        padding: 10px;
+        padding: 0px;
         border: 1px solid rgba(182, 178, 178, 0.903);
         box-shadow: 5px 5px 7px rgba(197, 189, 189, 0.774);
-        .article-img {
+        overflow: hidden;
+        background-color: white;
+        a {
+           padding: 0;
+          img {
             height: 300px;
-            margin-bottom: 20px;
-            padding: 0;
-            img {
-              height: 100%;
-              width: 100%;
-              object-fit: cover;
-            }
+            width: 100%;
+            object-fit: cover;
+          }
+          img:hover {
+            transform: scale(1.1);
+          }
+        }
+        .article-content {
+          padding: 30px;
         }
         .tag {
           padding: 0 10px;
@@ -149,7 +155,7 @@ main {
               color: black;
               font-size: 1.2rem;
             }
-          } 
+          }
         }
       }
     }

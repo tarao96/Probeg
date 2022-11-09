@@ -2,7 +2,7 @@
     <header>
         <div class="logo">
           <a href="/">
-            <img src="@/assets/images/logo2.png" alt="ロゴ画像">
+            <img src="@/assets/images/Probeg.png" alt="ロゴ画像">
           </a>
         </div>
         <a href="/">
@@ -23,14 +23,18 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 200px;
   h1.title {
-    font-size: 4.5rem;
+    font-size: 4.0rem;
+    padding-bottom: 10px;
     background: linear-gradient(blue, pink);
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   .logo img {
-    width: 200px;
+    width: 350px;
+    height: 150px;
+    object-fit: cover;
   }
 }
 </style>
