@@ -1,28 +1,42 @@
 <template>
-    <div>
-        <div class="article-tag">
-            <nuxt-link to="#" v-for="tag in tags" :key="tag.id">{{ tag.name }}</nuxt-link>
-        </div>
+  <div>
+    <div class="article-tag">
+      <div v-for="tag in tags" :key="tag.id">
+        <p class="search-tag" @click="searchByTagName(tag.name)">{{ tag.name }}</p>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-export default ({
-    props: {
-        tags: {
-            type: Array
-        }
+export default {
+  props: {
+    tags: {
+      type: Array,
+    },
+  },
+  methods: {
+    searchByTagName(tagName) {
+        this.$emit('clickTag', tagName);
     }
-})
+  }
+}
 </script>
 
 <style lang="scss">
-.article-tag a {
-    color: black;
-    border: 1px solid rgb(201, 199, 199);
-    margin-right: 10px;
-}
-.article-tag a:hover {
-    border: 1px solid black;
+.article-tag {
+    text-align: center;
+    display: flex;
+    gap: 5px;
+    .search-tag {
+        cursor: pointer;
+        color: black;
+        border: 1px solid rgb(201, 199, 199);
+        width: 100%;
+        padding: 5px 15px;
+    }
+    .search-tag:hover {
+        border: 1px solid black;
+    }
 }
 </style>

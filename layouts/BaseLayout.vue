@@ -1,20 +1,21 @@
 <template>
-    <div class="wrapper">
-        <base-heading></base-heading>
-        <main>
-            <nuxt></nuxt>
-        </main>
-        <base-footer></base-footer>
-    </div>
+  <div class="wrapper">
+    <base-heading></base-heading>
+    <main>
+      <nuxt></nuxt>
+    </main>
+    <base-footer></base-footer>
+  </div>
 </template>
 
 <script>
-export default ({
-})
+export default {}
 </script>
 
 <style lang="scss">
-*, ::before, ::after{
+*,
+::before,
+::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -23,7 +24,7 @@ export default ({
 body {
   // background-color: #f2f4fb;
   background-color: white;
-  font-family: Avenir,Hiragino Sans Gothic ProN,Meiryo,sans-serif;
+  font-family: Avenir, Hiragino Sans Gothic ProN, Meiryo, sans-serif;
 }
 
 a {

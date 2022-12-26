@@ -1,14 +1,13 @@
 <template>
-    <footer>
-      <p>©︎2022-present Keito Shitara</p>
-    </footer>
+  <footer>
+    <p>©︎2022-present Keito Shitara</p>
+  </footer>
 </template>
 
 <script>
-
-export default ({
-    name: 'base-footer'
-})
+export default {
+  name: 'base-footer',
+}
 </script>
 
 <style lang="scss">

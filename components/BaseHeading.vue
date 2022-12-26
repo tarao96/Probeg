@@ -1,20 +1,20 @@
 <template>
-    <header>
-        <div class="logo">
-          <a href="/">
-            <img src="@/assets/images/Probeg.png" alt="ロゴ画像">
-          </a>
-        </div>
-        <a href="/">
-          <h1 class="title">Probeg</h1>
-        </a>
-    </header>
+  <header>
+    <div class="logo">
+      <a href="/">
+        <img src="@/assets/images/Probeg.png" alt="ロゴ画像" />
+      </a>
+    </div>
+    <a href="/">
+      <h1 class="title">Probeg</h1>
+    </a>
+  </header>
 </template>
 
 <script>
-export default ({
-    name: 'base-heading',
-})
+export default {
+  name: 'base-heading',
+}
 </script>
 
 <style lang="scss">
@@ -25,7 +25,7 @@ header {
   justify-content: center;
   height: 200px;
   h1.title {
-    font-size: 4.0rem;
+    font-size: 4rem;
     padding-bottom: 10px;
     background: linear-gradient(blue, pink);
     background-clip: text;
