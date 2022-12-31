@@ -26,27 +26,36 @@
               </div>
             </a>
             <div class="tag">
-              <base-tag :tags="article.category" @clickTag="searchTag"></base-tag>
+              <base-tag
+                :tags="article.category"
+                @clickTag="searchTag"
+              ></base-tag>
             </div>
           </div>
         </div>
 
         <div class="paginate">
-          <nuxt-link to="#">
-            <div class="icon">
-              <ion-icon name="arrow-back-outline"></ion-icon>
+          <div class="nextPage" v-if="currentPage > 1" @click="nextPage">
+            <div class="nextPage-inner">
+              <div class="icon">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+              </div>
+              <span>Newer</span>
             </div>
-            <span>Newer</span>
-          </nuxt-link>
+          </div>
 
-          <p>1/7</p>
+          <div class="currentPage">
+            <p>{{ currentPage }}/7</p>
+          </div>
 
-          <nuxt-link to="#">
-            <span>Older</span>
-            <div class="icon">
-              <ion-icon name="arrow-forward-outline"></ion-icon>
+          <div class="prevPage" v-if="paginateFlg" @click="prevPage">
+            <div class="prevPage-inner">
+              <span>Older</span>
+              <div class="icon">
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+              </div>
             </div>
-          </nuxt-link>
+          </div>
         </div>
       </div>
     </div>
@@ -69,7 +78,36 @@ export default {
       articles: [],
       searchArticles: [],
       tags: [],
+      currentPage: 1,
+      paginateFlg: true,
     }
+  },
+  watch: {
+    async currentPage(newValue) {
+      await this.$axios
+        .get(
+          `https://klontiicxy.microcms.io/api/v1/blogs?limit=9&offset=${
+            (newValue - 1) * 10
+          }`,
+          {
+            headers: {
+              'X-MICROCMS-API-KEY': 'e5714836f9194e1795b5beb49c66e4a20569',
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data.contents)
+          this.articles = res.data.contents
+          this.searchArticles = res.data.contents
+
+          // 次ページのコンテンツがない場合はolderボタンを削除する
+          if (res.data.contents.length < 9) {
+            this.paginateFlg = false
+          } else {
+            this.paginateFlg = true
+          }
+        })
+    },
   },
   methods: {
     searchTag(tagName) {
@@ -83,29 +121,43 @@ export default {
         })
 
         return array.length > 0
-        // return article.category.filter((item) => {
-        //   console.log(item.name);
-        //   return item.name.indexOf(tagName) !== -1;
-        // });
       })
       console.log(searchArticles)
       this.searchArticles = searchArticles
     },
+    prevPage() {
+      this.currentPage += 1
+    },
+    nextPage() {
+      this.currentPage -= 1
+    },
   },
-  async asyncData({ $config }) {
-    const res = await Promise.all([
-      axios.get(`${$config.apiUrl}/blogs?limit=100`, {
-        headers: { 'X-MICROCMS-API-KEY': $config.apiKey },
-      }),
-      axios.get(`${$config.apiUrl}/categories`, {
-        headers: { 'X-MICROCMS-API-KEY': $config.apiKey },
-      }),
-    ])
-    return {
-      articles: res[0].data.contents,
-      searchArticles: res[0].data.contents,
-      tags: res[1].data.contents,
-    }
+  async mounted() {
+    await this.$axios
+      .get(
+        `${this.$config.apiUrl}/blogs?limit=9&offset=${
+          (this.currentPage - 1) * 10
+        }`,
+        {
+          headers: {
+            'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
+          },
+        }
+      )
+      .then((res) => {
+        this.articles = res.data.contents
+        this.searchArticles = res.data.contents
+      })
+
+    await this.$axios
+      .get(`${this.$config.apiUrl}/categories`, {
+        headers: {
+          'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
+        },
+      })
+      .then((res) => {
+        this.tags = res.data.contents
+      })
   },
 }
 </script>
@@ -174,19 +226,62 @@ main {
       }
     }
     .article .paginate {
-      display: flex;
-      justify-content: space-between;
-      a {
-        display: flex;
-        justify-content: space-between;
+      position: relative;
+      width: 100%;
+      height: 100px;
+      .nextPage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        margin: 0;
         background-color: white;
         color: black;
         border: 1px solid black;
-        .icon {
-          padding-top: 3px;
+        padding: 5px 10px;
+        cursor: pointer;
+        .nextPage-inner {
+          display: flex;
+          justify-content: space-between;
+          .icon {
+            padding-top: 3px;
+          }
         }
       }
-      a:hover {
+      .currentPage {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 100px;
+        margin: 0;
+      }
+      .prevPage {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px;
+        margin: 0;
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        padding: 5px 10px;
+        cursor: pointer;
+        .prevPage-inner {
+          display: flex;
+          justify-content: space-between;
+          .icon {
+            padding-top: 3px;
+          }
+        }
+      }
+      .nextPage:hover {
+        background-color: black;
+        color: white;
+        .icon {
+          color: white;
+        }
+      }
+      .prevPage:hover {
         background-color: black;
         color: white;
         .icon {
