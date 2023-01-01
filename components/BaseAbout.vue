@@ -11,12 +11,11 @@
         </p>
         <br />
         <p>
-          当サイトはNuxt.jsとheadlessCMSで構築し、Netlifyから配信しています。
+          本ブログはサーバーサイド言語はPHP/Laravel、フロントエンド言語はVue.js/Nuxt.jsを中心に言語の基本的な仕様からWebアプリケーションの開発やHTML/CSS/JavaScriptを使ったWebサイト制作までを解説してます。
         </p>
         <br />
         <p>
-          記事中の絵文字は<a href="https://joypixels.com/">EmojiOne</a
-          >にて無料配布されています。
+          当サイトはNuxt.jsとheadlessCMSで構築し、Netlifyから配信しています。
         </p>
       </div>
     </div>
