@@ -9,6 +9,12 @@
         <h1 class="title">Probeg</h1>
       </nuxt-link>
     </header>
+    <!-- トップスクロール -->
+    <div class="scroll-wrapper" style="margin-right: 50px;" @click="scrollTop">
+      <div class="scroll-top">
+        <ion-icon name="arrow-up-outline" class="scroll-top-btn"></ion-icon>
+      </div>
+    </div>
     <article>
       <div class="card">
         <div class="heading">
@@ -18,14 +24,31 @@
           <div class="text">
             <div class="author">
               <img :src="article.author.img.url" alt="プロフィール画像" />
-              <nuxt-link :to="'/author/' + article.author.id">{{ article.author.name }}</nuxt-link>
+              <nuxt-link :to="'/author/' + article.author.id">{{
+                article.author.name
+              }}</nuxt-link>
             </div>
             <base-tag :tags="article.category"></base-tag>
           </div>
         </div>
-
         <div class="main">
           <div class="contents" v-html="body"></div>
+        </div>
+      </div>
+      <div class="table-of-contents-wrapper">
+        <div class="table-of-contents">
+          <div class="header">
+            <h2 class="table-of-contents-header">目次</h2>
+          </div>
+          <div class="body">
+            <ul class="lists">
+              <li :class="`list${item.name}`" v-for="item in toc" :key="item.id">
+                <nuxt-link :to="`#${item.id}`">
+                  {{ item.text }}
+                </nuxt-link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </article>
@@ -54,7 +77,13 @@ export default {
       latestArticles: [],
       article: [],
       body: [],
+      toc: [],
     }
+  },
+  methods: {
+    scrollTop() {
+      window.scroll({ top: 0, behavior: 'smooth' })
+    },
   },
   async asyncData({ $config, params }) {
     const articleRes = await axios.get(`${$config.apiUrl}/blogs/${params.id}`, {
@@ -96,16 +125,27 @@ export default {
       $(elm).addClass('hljs')
     })
 
+    // 目次を生成する
+    const headings = $('h1, h2, h3').toArray();
+    console.log(headings);
+    const toc = headings.map((data) => ({
+      text: data.children[0].data,
+      id: data.attribs.id,
+      name: data.name,
+    }))
+
+    // console.log(toc)
+
     return {
       article: articleRes.data,
       body: $.html(),
       latestArticles: latestArticles,
       articles: relatedArticles,
+      toc: toc,
     }
   },
 }
 </script>
 
 <style lang="scss">
-
 </style>
