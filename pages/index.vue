@@ -1,5 +1,18 @@
 <template>
   <div>
+    <header>
+      <div class="logo-wrapper" @click="moveTop">
+        <div class="logo">
+          <img src="@/assets/images/Probeg.png" alt="ロゴ画像" />
+        </div>
+        <h1 class="title">Probeg</h1>
+      </div>
+    </header>
+    <div class="scroll-wrapper" @click="scrollTop">
+      <div class="scroll-top">
+        <ion-icon name="arrow-up-outline" class="scroll-top-btn"></ion-icon>
+      </div>
+    </div>
     <div class="container">
       <div class="article">
         <div class="row">
@@ -67,7 +80,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import BaseTag from '../components/Tags/BaseTag.vue'
 
 export default {
@@ -77,6 +89,7 @@ export default {
     return {
       articles: [],
       searchArticles: [],
+      sliceArray: [],
       tags: [],
       currentPage: 1,
       paginateFlg: true,
@@ -84,46 +97,91 @@ export default {
   },
   watch: {
     async currentPage(newValue) {
-      await this.$axios
-        .get(
-          `https://klontiicxy.microcms.io/api/v1/blogs?limit=9&offset=${
-            (newValue - 1) * 10
-          }`,
-          {
-            headers: {
-              'X-MICROCMS-API-KEY': 'e5714836f9194e1795b5beb49c66e4a20569',
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res.data.contents)
-          this.articles = res.data.contents
-          this.searchArticles = res.data.contents
+      if (this.sliceArray.length > 0) {
+        // 検索した場合
+        if (this.sliceArray[newValue - 1]) {
+          this.searchArticles = this.sliceArray[newValue - 1];
+          console.log(this.sliceArray, newValue);
+          this.paginateFlg = this.sliceArray[newValue].length == 0 ? false : true;
+        }
+        window.scroll({top: 0, behavior: 'smooth'});
+      } else {
+        await this.$axios
+          .get(
+            `https://klontiicxy.microcms.io/api/v1/blogs?limit=9&offset=${
+              (newValue - 1) * 10
+            }`,
+            {
+              headers: {
+                'X-MICROCMS-API-KEY': 'e5714836f9194e1795b5beb49c66e4a20569',
+              },
+            }
+          )
+          .then((res) => {
+            console.log(res.data.contents)
+            this.articles = res.data.contents
+            this.searchArticles = res.data.contents
 
-          // 次ページのコンテンツがない場合はolderボタンを削除する
-          if (res.data.contents.length < 9) {
-            this.paginateFlg = false
-          } else {
-            this.paginateFlg = true
-          }
-        })
+            // 次ページのコンテンツがない場合はolderボタンを削除する
+            if (res.data.contents.length < 9) {
+              this.paginateFlg = false
+            } else {
+              this.paginateFlg = true
+            }
+
+            window.scroll({top: 0, behavior: 'smooth'});
+          })
+      }
     },
   },
   methods: {
-    searchTag(tagName) {
-      console.log('searchTagが発火しました')
-      const searchArticles = this.articles.filter((article) => {
-        const array = []
-        article.category.forEach((item) => {
-          if (item.name.indexOf(tagName) !== -1) {
-            array.push(tagName)
-          }
+    async searchTag(tagName) {
+      console.log('searchTagが発火しました');
+      console.log(tagName);
+      await this.$axios.get(`${this.$config.apiUrl}/blogs?limit=100`,
+        {
+          headers: {
+            'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
+          },
         })
+        .then((res) => {
+          console.log(res.data.contents);
+          const searchResults = res.data.contents.filter((article) => {
+            const array = [];
+            article.category.forEach((item) => {
+              if (item.name.indexOf(tagName) !== -1) {
+                array.push(item);
+              }
+            })
+            return array.length > 0;
+          })
 
-        return array.length > 0
-      })
-      console.log(searchArticles)
-      this.searchArticles = searchArticles
+          console.log(searchResults);
+
+          const length = 9;
+          const sliceArray = [];
+          for (let i = 0; i<searchResults.length; i++) {
+            let sliceNumberList = searchResults.slice(i*length, (i+1)*length);
+            sliceArray.push(sliceNumberList);
+          }
+          console.log(sliceArray);
+
+          // 分割した全体の配列
+          this.sliceArray = sliceArray;
+          // 表示する配列
+          this.searchArticles = this.sliceArray[this.currentPage - 1];
+
+          if (this.currentPage > 1) {
+            this.currentPage = 1;
+          }
+
+          // 表示コンテンツが9記事以下ならolderボタンを削除する
+          if (this.sliceArray[this.currentPage].length == 0) {
+            this.paginateFlg = false;
+          }
+
+          window.scroll({top: 0, behavior: 'smooth'});
+        })
     },
     prevPage() {
       this.currentPage += 1
@@ -131,9 +189,20 @@ export default {
     nextPage() {
       this.currentPage -= 1
     },
-  },
-  async mounted() {
-    await this.$axios
+    scrollTop() {
+      window.scroll({top: 0, behavior: 'smooth'});
+    },
+    moveTop() {
+      this.sliceArray = [];
+      if (this.currentPage !== 1) {
+        this.currentPage = 1;
+      } else {
+        this.getArticles();
+        this.paginateFlg = true;
+      }
+    },
+    async getArticles() {
+      await this.$axios
       .get(
         `${this.$config.apiUrl}/blogs?limit=9&offset=${
           (this.currentPage - 1) * 10
@@ -149,23 +218,71 @@ export default {
         this.searchArticles = res.data.contents
       })
 
-    await this.$axios
-      .get(`${this.$config.apiUrl}/categories`, {
-        headers: {
-          'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
-        },
-      })
-      .then((res) => {
-        this.tags = res.data.contents
-      })
+      await this.$axios
+        .get(`${this.$config.apiUrl}/categories`, {
+          headers: {
+            'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
+          },
+        })
+        .then((res) => {
+          this.tags = res.data.contents
+        })
+    }
+  },
+  mounted() {
+    this.getArticles();
+    this.paginateFlg = true;
   },
 }
 </script>
 
 <style lang="scss" scoped>
+header {
+  margin: 0px auto;
+  height: 200px;
+  .logo-wrapper {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h1.title {
+      font-size: 4rem;
+      padding-bottom: 10px;
+      background: linear-gradient(blue, pink);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .logo img {
+      width: 350px;
+      height: 150px;
+      object-fit: cover;
+    }
+  }
+}
 main {
   width: 100%;
   margin: 0 auto;
+  .scroll-wrapper {
+    position: absolute;
+    bottom: 100px;
+    right: 80px;
+    cursor: pointer;
+    .scroll-top {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      background-color: gray;
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      .scroll-top-btn {
+        font-size: 30px;
+        color: white;
+        font-weight: bold;
+      }
+    }
+  }
   .container {
     width: 90%;
     margin: 50px auto;

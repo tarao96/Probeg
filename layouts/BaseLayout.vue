@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <base-heading></base-heading>
+    <!-- <base-heading></base-heading> -->
     <main>
       <nuxt></nuxt>
     </main>
