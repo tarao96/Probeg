@@ -274,27 +274,6 @@ main {
       }
     }
   }
-  .scroll-wrapper {
-    position: absolute;
-    bottom: 100px;
-    right: 80px;
-    cursor: pointer;
-    .scroll-top {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      background-color: gray;
-      width: 60px;
-      height: 60px;
-      border-radius: 10px;
-      .scroll-top-btn {
-        font-size: 30px;
-        color: white;
-        font-weight: bold;
-      }
-    }
-  }
   .container {
     width: 90%;
     margin: 50px auto;
