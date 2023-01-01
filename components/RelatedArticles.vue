@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="related-articles">
     <div class="container">
       <div class="article">
         <h2>関連記事</h2>
@@ -51,60 +51,68 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.article .row {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin: 50px 0;
-  gap: 50px 10px;
-  .card {
+.related-articles {
+  .article {
+    width: 65%;
+    height: 100%;
+    margin: 50px auto;
+    transform: translateX(-23%);
+    .row {
     display: flex;
-    flex-direction: column;
-    width: 400px;
-    height: 530px;
-    padding: 0px;
-    border: 1px solid rgba(182, 178, 178, 0.903);
-    box-shadow: 5px 5px 7px rgba(197, 189, 189, 0.774);
-    overflow: hidden;
-    background-color: white;
-    a {
-      padding: 0;
-      img {
-        height: 300px;
-        width: 100%;
-        object-fit: cover;
-      }
-      img:hover {
-        transform: scale(1.1);
-      }
-    }
-    .tag {
-      padding: 0 10px;
-    }
-    .article-content {
-      padding: 10px;
-    }
-    .text {
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 50px 0;
+    gap: 50px 10px;
+    .card {
+      display: flex;
+      flex-direction: column;
+      width: 400px;
+      height: 530px;
       padding: 0px;
-      background-color: #fff;
-      a:hover {
-        opacity: 0.8;
+      border: 1px solid rgba(182, 178, 178, 0.903);
+      box-shadow: 5px 5px 7px rgba(197, 189, 189, 0.774);
+      overflow: hidden;
+      background-color: white;
+      a {
+        padding: 0;
+        img {
+          height: 300px;
+          width: 100%;
+          object-fit: cover;
+        }
+        img:hover {
+          transform: scale(1.1);
+        }
       }
-      span {
-        display: block;
-        color: rgba(136, 132, 132, 0.8);
-        margin-bottom: 20px;
+      .tag {
+        padding: 0 10px;
       }
-      .article-title {
-        margin-bottom: 30px;
-        a {
+      .article-content {
+        padding: 10px;
+      }
+      .text {
+        padding: 0px;
+        background-color: #fff;
+        a:hover {
+          opacity: 0.8;
+        }
+        span {
+          display: block;
+          color: rgba(136, 132, 132, 0.8);
+          margin-bottom: 20px;
+        }
+        .article-title {
           margin-bottom: 30px;
-          // border: none;
-          color: black;
-          font-size: 1.2rem;
+          a {
+            margin-bottom: 30px;
+            // border: none;
+            color: black;
+            font-size: 1.2rem;
+          }
         }
       }
     }
+  }
   }
 }
 </style>
