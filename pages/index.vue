@@ -117,12 +117,12 @@ export default {
       } else {
         await this.$axios
           .get(
-            `https://klontiicxy.microcms.io/api/v1/blogs?limit=9&offset=${
-              (newValue - 1) * 10
+            `${this.$config.apiUrl}/blogs?limit=12&offset=${
+              (newValue - 1) * 12
             }`,
             {
               headers: {
-                'X-MICROCMS-API-KEY': 'e5714836f9194e1795b5beb49c66e4a20569',
+                'X-MICROCMS-API-KEY': this.$config.apiKey,
               },
             }
           )
@@ -167,7 +167,7 @@ export default {
 
           console.log(searchResults)
 
-          const length = 9
+          const length = 12
           const sliceArray = []
           for (let i = 0; i < searchResults.length; i++) {
             let sliceNumberList = searchResults.slice(
@@ -216,8 +216,8 @@ export default {
     async getArticles() {
       await this.$axios
         .get(
-          `${this.$config.apiUrl}/blogs?limit=9&offset=${
-            (this.currentPage - 1) * 10
+          `${this.$config.apiUrl}/blogs?limit=12&offset=${
+            (this.currentPage - 1) * 13
           }`,
           {
             headers: {
