@@ -2,7 +2,7 @@
   <div>
     <div class="article-tag">
       <div v-for="tag in tags" :key="tag.id">
-        <p class="search-tag" @click="searchByTagName(tag.name)">{{ tag.name }}</p>
+        <p class="search-tag">{{ tag.name }}</p>
       </div>
     </div>
   </div>
@@ -29,7 +29,6 @@ export default {
     display: flex;
     gap: 5px;
     .search-tag {
-        cursor: pointer;
         color: black;
         border: 1px solid rgb(201, 199, 199);
         width: 100%;
