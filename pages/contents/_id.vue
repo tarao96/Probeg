@@ -1,5 +1,14 @@
 <template>
   <div>
+    <!-- ヘッダー -->
+    <header>
+      <nuxt-link class="logo-wrapper" to="/">
+        <div class="logo">
+          <img src="@/assets/images/Probeg.png" alt="ロゴ画像" />
+        </div>
+        <h1 class="title">Probeg</h1>
+      </nuxt-link>
+    </header>
     <article>
       <div class="card">
         <div class="heading">
@@ -98,6 +107,28 @@ export default {
 </script>
 
 <style lang="scss">
+header {
+    margin: 0px auto;
+    height: 200px;
+    .logo-wrapper {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      h1.title {
+        font-size: 4rem;
+        padding-bottom: 10px;
+        background: linear-gradient(blue, pink);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .logo img {
+        width: 350px;
+        height: 150px;
+        object-fit: cover;
+      }
+    }
+  }
 article {
   .card {
     display: flex;

@@ -68,6 +68,7 @@ export default {
           padding: 5px 10px;
           color: white;
           border: 1px solid white;
+          transition: .3s;
           cursor: pointer;
         }
         p:hover {

@@ -34,6 +34,7 @@ export default {
         border: 1px solid rgb(201, 199, 199);
         width: 100%;
         padding: 5px 15px;
+        transition: .4s;
     }
     .search-tag:hover {
         border: 1px solid black;

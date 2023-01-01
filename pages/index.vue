@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- ヘッダー -->
     <header>
       <div class="logo-wrapper" @click="moveTop">
         <div class="logo">
@@ -8,23 +9,28 @@
         <h1 class="title">Probeg</h1>
       </div>
     </header>
+    <!-- トップスクロール -->
     <div class="scroll-wrapper" @click="scrollTop">
       <div class="scroll-top">
         <ion-icon name="arrow-up-outline" class="scroll-top-btn"></ion-icon>
       </div>
     </div>
+    <!-- メイン -->
     <div class="container">
-      <div class="article">
+      <div class="article-wrapper">
         <div class="row">
           <div v-for="article in searchArticles" :key="article.id" class="card">
-            <a :href="'/contents/' + article.id + '/'">
+            <nuxt-link :to="'/contents/' + article.id + '/'">
               <img
                 :src="article.eyecatch.url"
                 class="article-img"
                 alt="コンテンツ画像"
               />
-            </a>
-            <a class="article-content" :href="'/contents/' + article.id + '/'">
+            </nuxt-link>
+            <div
+              class="article-content"
+              :href="'/contents/' + article.id + '/'"
+            >
               <div class="text">
                 <span
                   >{{ article.updatedAt | formatDate }}&emsp;{{
@@ -32,12 +38,14 @@
                   }}</span
                 >
                 <div class="article-title">
-                  <nuxt-link to="/contents" class="content-title"
+                  <nuxt-link
+                    :to="'/contents/' + article.id + '/'"
+                    class="content-title"
                     ><b>{{ article.title }}</b></nuxt-link
                   >
                 </div>
               </div>
-            </a>
+            </div>
             <div class="tag">
               <base-tag
                 :tags="article.category"
@@ -100,11 +108,12 @@ export default {
       if (this.sliceArray.length > 0) {
         // 検索した場合
         if (this.sliceArray[newValue - 1]) {
-          this.searchArticles = this.sliceArray[newValue - 1];
-          console.log(this.sliceArray, newValue);
-          this.paginateFlg = this.sliceArray[newValue].length == 0 ? false : true;
+          this.searchArticles = this.sliceArray[newValue - 1]
+          console.log(this.sliceArray, newValue)
+          this.paginateFlg =
+            this.sliceArray[newValue].length == 0 ? false : true
         }
-        window.scroll({top: 0, behavior: 'smooth'});
+        window.scroll({ top: 0, behavior: 'smooth' })
       } else {
         await this.$axios
           .get(
@@ -129,58 +138,61 @@ export default {
               this.paginateFlg = true
             }
 
-            window.scroll({top: 0, behavior: 'smooth'});
+            window.scroll({ top: 0, behavior: 'smooth' })
           })
       }
     },
   },
   methods: {
     async searchTag(tagName) {
-      console.log('searchTagが発火しました');
-      console.log(tagName);
-      await this.$axios.get(`${this.$config.apiUrl}/blogs?limit=100`,
-        {
+      console.log('searchTagが発火しました')
+      console.log(tagName)
+      await this.$axios
+        .get(`${this.$config.apiUrl}/blogs?limit=100`, {
           headers: {
             'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
           },
         })
         .then((res) => {
-          console.log(res.data.contents);
+          console.log(res.data.contents)
           const searchResults = res.data.contents.filter((article) => {
-            const array = [];
+            const array = []
             article.category.forEach((item) => {
               if (item.name.indexOf(tagName) !== -1) {
-                array.push(item);
+                array.push(item)
               }
             })
-            return array.length > 0;
+            return array.length > 0
           })
 
-          console.log(searchResults);
+          console.log(searchResults)
 
-          const length = 9;
-          const sliceArray = [];
-          for (let i = 0; i<searchResults.length; i++) {
-            let sliceNumberList = searchResults.slice(i*length, (i+1)*length);
-            sliceArray.push(sliceNumberList);
+          const length = 9
+          const sliceArray = []
+          for (let i = 0; i < searchResults.length; i++) {
+            let sliceNumberList = searchResults.slice(
+              i * length,
+              (i + 1) * length
+            )
+            sliceArray.push(sliceNumberList)
           }
-          console.log(sliceArray);
+          console.log(sliceArray)
 
           // 分割した全体の配列
-          this.sliceArray = sliceArray;
+          this.sliceArray = sliceArray
           // 表示する配列
-          this.searchArticles = this.sliceArray[this.currentPage - 1];
+          this.searchArticles = this.sliceArray[this.currentPage - 1]
 
           if (this.currentPage > 1) {
-            this.currentPage = 1;
+            this.currentPage = 1
           }
 
           // 表示コンテンツが9記事以下ならolderボタンを削除する
           if (this.sliceArray[this.currentPage].length == 0) {
-            this.paginateFlg = false;
+            this.paginateFlg = false
           }
 
-          window.scroll({top: 0, behavior: 'smooth'});
+          window.scroll({ top: 0, behavior: 'smooth' })
         })
     },
     prevPage() {
@@ -190,33 +202,33 @@ export default {
       this.currentPage -= 1
     },
     scrollTop() {
-      window.scroll({top: 0, behavior: 'smooth'});
+      window.scroll({ top: 0, behavior: 'smooth' })
     },
     moveTop() {
-      this.sliceArray = [];
+      this.sliceArray = []
       if (this.currentPage !== 1) {
-        this.currentPage = 1;
+        this.currentPage = 1
       } else {
-        this.getArticles();
-        this.paginateFlg = true;
+        this.getArticles()
+        this.paginateFlg = true
       }
     },
     async getArticles() {
       await this.$axios
-      .get(
-        `${this.$config.apiUrl}/blogs?limit=9&offset=${
-          (this.currentPage - 1) * 10
-        }`,
-        {
-          headers: {
-            'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
-          },
-        }
-      )
-      .then((res) => {
-        this.articles = res.data.contents
-        this.searchArticles = res.data.contents
-      })
+        .get(
+          `${this.$config.apiUrl}/blogs?limit=9&offset=${
+            (this.currentPage - 1) * 10
+          }`,
+          {
+            headers: {
+              'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
+            },
+          }
+        )
+        .then((res) => {
+          this.articles = res.data.contents
+          this.searchArticles = res.data.contents
+        })
 
       await this.$axios
         .get(`${this.$config.apiUrl}/categories`, {
@@ -227,41 +239,41 @@ export default {
         .then((res) => {
           this.tags = res.data.contents
         })
-    }
+    },
   },
   mounted() {
-    this.getArticles();
-    this.paginateFlg = true;
+    this.getArticles()
+    this.paginateFlg = true
   },
 }
 </script>
 
 <style lang="scss" scoped>
-header {
-  margin: 0px auto;
-  height: 200px;
-  .logo-wrapper {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    h1.title {
-      font-size: 4rem;
-      padding-bottom: 10px;
-      background: linear-gradient(blue, pink);
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .logo img {
-      width: 350px;
-      height: 150px;
-      object-fit: cover;
-    }
-  }
-}
 main {
   width: 100%;
   margin: 0 auto;
+  header {
+    margin: 0px auto;
+    height: 200px;
+    .logo-wrapper {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      h1.title {
+        font-size: 4rem;
+        padding-bottom: 10px;
+        background: linear-gradient(blue, pink);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .logo img {
+        width: 350px;
+        height: 150px;
+        object-fit: cover;
+      }
+    }
+  }
   .scroll-wrapper {
     position: absolute;
     bottom: 100px;
@@ -286,7 +298,7 @@ main {
   .container {
     width: 90%;
     margin: 50px auto;
-    .article .row {
+    .article-wrapper .row {
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
@@ -302,6 +314,7 @@ main {
         box-shadow: 5px 5px 7px rgba(197, 189, 189, 0.774);
         overflow: hidden;
         background-color: white;
+        border-radius: 5%;
         a {
           padding: 0;
           img {
@@ -310,6 +323,7 @@ main {
             object-fit: cover;
           }
           img:hover {
+            transition: .2s;
             transform: scale(1.1);
           }
         }
@@ -342,7 +356,7 @@ main {
         }
       }
     }
-    .article .paginate {
+    .article-wrapper .paginate {
       position: relative;
       width: 100%;
       height: 100px;
