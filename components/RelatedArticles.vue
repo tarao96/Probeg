@@ -56,7 +56,7 @@ export default {
     width: 65%;
     height: 100%;
     margin: 50px auto;
-    transform: translateX(-23%);
+    transform: translateX(-15%);
     .row {
     display: flex;
     justify-content: space-around;
@@ -73,6 +73,7 @@ export default {
       box-shadow: 5px 5px 7px rgba(197, 189, 189, 0.774);
       overflow: hidden;
       background-color: white;
+      border-radius: 5%;
       a {
         padding: 0;
         img {

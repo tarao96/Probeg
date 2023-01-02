@@ -1,4 +1,3 @@
-
 .content {
   header {
     margin: 0px auto;
@@ -25,11 +24,12 @@
   article {
     width: 90%;
     padding: 0 auto;
+    margin: 0 auto;
     .table-of-contents-wrapper {
       z-index: 100;
       position: fixed;
       top: 250px;
-      right: 5%;
+      right: 10%;
       border: 1px solid black;
       background-color: white;
       .table-of-contents {
@@ -239,6 +239,20 @@
           }
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .content {
+    article {
+      .card {
+        transform: translateX(0);
+        width: 90%;
+      }
+    }
+    .table-of-contents-wrapper {
+      display: none;
     }
   }
 }

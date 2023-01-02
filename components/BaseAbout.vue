@@ -28,7 +28,8 @@ export default {}
 
 <style lang="scss">
 .about {
-  height: 320px;
+  height: 100%;
+  padding: 50px 0;
   background: linear-gradient(
     to right,
     rgba(83, 102, 212, 0.855),
@@ -39,7 +40,7 @@ export default {}
   color: white;
   .about-title {
     text-align: center;
-    margin: 50px auto;
+    margin: 20px auto;
     width: 80px;
     padding-bottom: 10px;
     border-bottom: 2px solid #fff;
