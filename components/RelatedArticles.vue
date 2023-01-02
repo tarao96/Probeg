@@ -66,9 +66,10 @@ export default {
     .card {
       display: flex;
       flex-direction: column;
-      width: 400px;
-      height: 530px;
+      width: 40%;
+      height: 100%;
       padding: 0px;
+      padding-bottom: 10px;
       border: 1px solid rgba(182, 178, 178, 0.903);
       box-shadow: 5px 5px 7px rgba(197, 189, 189, 0.774);
       overflow: hidden;
@@ -114,6 +115,45 @@ export default {
       }
     }
   }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .related-articles {
+    .article {
+      width: 90%;
+      transform: translateX(0);
+      h2 {
+        font-size: 1.2em;
+      }
+      .row {
+        flex-direction: column;
+        .card {
+          width: 90%;
+          a {
+            img {
+              height: 100px;
+            }
+          }
+          .article-content {
+            padding: 5px 10px;
+          }
+          .text {
+            font-size: 0.8em;
+            span {
+              margin-bottom: 5px;
+            }
+            .article-title {
+              margin-bottom: 5px;
+              a {
+                margin-bottom: 5px;
+                font-size: 1.0em;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 </style>

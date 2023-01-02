@@ -1,14 +1,5 @@
 <template>
   <div class="content">
-    <!-- ヘッダー -->
-    <header>
-      <nuxt-link class="logo-wrapper" to="/">
-        <div class="logo">
-          <img src="@/assets/images/Probeg.png" alt="ロゴ画像" />
-        </div>
-        <h1 class="title">Probeg</h1>
-      </nuxt-link>
-    </header>
     <!-- トップスクロール -->
     <div class="scroll-wrapper" style="margin-right: 50px;" @click="scrollTop">
       <div class="scroll-top">
@@ -68,10 +59,11 @@ import hljs from 'highlight.js'
 import BaseTag from '@/components/Tags/BaseTag.vue'
 import LatestArticles from '@/components/LatestArticles.vue'
 import RelatedArticles from '@/components/RelatedArticles.vue'
+import BaseHeading from '@/components/BaseHeading.vue'
 
 export default {
   layout: 'BaseLayout',
-  components: { BaseTag, LatestArticles, RelatedArticles },
+  components: { BaseTag, LatestArticles, RelatedArticles, BaseHeading },
   data() {
     return {
       latestArticles: [],
@@ -85,8 +77,8 @@ export default {
       window.scroll({ top: 0, behavior: 'smooth' })
     },
   },
-  async asyncData({ $config, params }) {
-    const articleRes = await axios.get(`${$config.apiUrl}/blogs/${params.id}`, {
+  async asyncData({ $axios, $config, params }) {
+    const articleRes = await $axios.get(`${$config.apiUrl}/blogs/${params.id}`, {
       headers: { 'X-MICROCMS-API-KEY': $config.apiKey },
     })
 

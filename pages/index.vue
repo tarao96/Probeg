@@ -1,14 +1,5 @@
 <template>
   <div>
-    <!-- ヘッダー -->
-    <header>
-      <div class="logo-wrapper" @click="moveTop">
-        <div class="logo">
-          <img src="@/assets/images/Probeg.png" alt="ロゴ画像" />
-        </div>
-        <h1 class="title">Probeg</h1>
-      </div>
-    </header>
     <!-- トップスクロール -->
     <div class="scroll-wrapper" @click="scrollTop">
       <div class="scroll-top">
@@ -294,8 +285,9 @@ main {
         display: flex;
         flex-direction: column;
         width: 400px;
-        height: 530px;
+        height: 100%;
         padding: 0px;
+        padding-bottom: 20px;
         border: 1px solid rgba(182, 178, 178, 0.903);
         box-shadow: 5px 5px 7px rgba(197, 189, 189, 0.774);
         overflow: hidden;
@@ -404,6 +396,29 @@ main {
         color: white;
         .icon {
           color: white;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  main {
+    .container {
+      .article-wrapper .row {
+        .card {
+          .article-content {
+            padding: 0 30px;
+          }
+          .tag {
+            padding: 0 30px;
+          }
+          .text {
+            margin-top: 10px;
+            .article-title {
+              margin-bottom: 10px;
+            }
+          }
         }
       }
     }
