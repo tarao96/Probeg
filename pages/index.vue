@@ -166,6 +166,13 @@ export default {
 
           // 分割した全体の配列
           this.sliceArray = sliceArray
+
+          // 検索するごとに全ページ数を更新する
+          const filterSliceArray = sliceArray.filter((item) => {
+            return item.length > 0;
+          })
+          this.allPages = filterSliceArray.length;
+
           // 表示する配列
           this.searchArticles = this.sliceArray[this.currentPage - 1]
 
