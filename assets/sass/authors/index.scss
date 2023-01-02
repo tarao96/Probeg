@@ -98,3 +98,34 @@
       }
     }
 }
+
+
+@media screen and (max-width: 768px) {
+  .author {
+    article {
+      .card {
+        margin-top: 80px;
+        width: 90%;
+        .main {
+          .contents {
+            h1 {
+              font-size: 1.8em;
+            }
+            h2 {
+              font-size: 1.3em;
+            }
+            h2::before {
+              height: 30px;
+            }
+            p {
+              font-size: 0.8em;
+            }
+            li {
+              font-size: 0.8em;
+            }
+          }
+        }
+      }
+    }
+  }
+}
