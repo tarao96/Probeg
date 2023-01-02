@@ -1,11 +1,5 @@
 <template>
   <div>
-    <!-- トップスクロール -->
-    <div class="scroll-wrapper" @click="scrollTop">
-      <div class="scroll-top">
-        <ion-icon name="arrow-up-outline"></ion-icon>
-      </div>
-    </div>
     <!-- メイン -->
     <div class="container">
       <div class="article-wrapper">
@@ -192,9 +186,6 @@ export default {
     },
     nextPage() {
       this.currentPage -= 1
-    },
-    scrollTop() {
-      window.scroll({ top: 0, behavior: 'smooth' })
     },
     moveTop() {
       this.sliceArray = []

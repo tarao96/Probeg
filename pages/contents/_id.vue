@@ -1,11 +1,5 @@
 <template>
   <div class="content">
-    <!-- トップスクロール -->
-    <div class="scroll-wrapper" style="margin-right: 50px;" @click="scrollTop">
-      <div class="scroll-top">
-        <ion-icon name="arrow-up-outline" class="scroll-top-btn"></ion-icon>
-      </div>
-    </div>
     <article>
       <div class="card">
         <div class="heading">
