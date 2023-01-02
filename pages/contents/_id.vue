@@ -113,14 +113,11 @@ export default {
 
     // 目次を生成する
     const headings = $('h1, h2, h3').toArray();
-    console.log(headings);
     const toc = headings.map((data) => ({
       text: data.children[0].data,
       id: data.attribs.id,
       name: data.name,
     }))
-
-    // console.log(toc)
 
     return {
       article: articleRes.data,

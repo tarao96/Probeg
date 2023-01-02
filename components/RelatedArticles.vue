@@ -57,6 +57,7 @@ export default {
     height: 100%;
     margin: 50px auto;
     transform: translateX(-15%);
+    box-shadow: 0 0 8px rgb(123, 122, 122);
     .row {
     display: flex;
     justify-content: space-around;
@@ -71,7 +72,7 @@ export default {
       padding: 0px;
       padding-bottom: 10px;
       border: 1px solid rgba(182, 178, 178, 0.903);
-      box-shadow: 5px 5px 7px rgba(197, 189, 189, 0.774);
+      box-shadow: 0 0 8px rgb(123, 122, 122);
       overflow: hidden;
       background-color: white;
       border-radius: 5%;

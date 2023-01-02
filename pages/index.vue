@@ -135,7 +135,6 @@ export default {
   },
   methods: {
     async searchTag(tagName) {
-      console.log('searchTagが発火しました')
       console.log(tagName)
       await this.$axios
         .get(`${this.$config.apiUrl}/blogs?limit=100`, {
@@ -184,8 +183,8 @@ export default {
             this.currentPage = 1
           }
 
-          // 表示コンテンツが9記事以下ならolderボタンを削除する
-          if (this.sliceArray[this.currentPage].length == 0) {
+          // 表示コンテンツが12記事以下ならolderボタンを削除する
+          if (this.sliceArray[0].length < 12) {
             this.paginateFlg = false
           }
 
