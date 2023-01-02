@@ -416,7 +416,7 @@ main {
           .text {
             margin-top: 10px;
             .article-title {
-              margin-bottom: 10px;
+              margin-bottom: 30px;
             }
           }
         }
