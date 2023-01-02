@@ -13,7 +13,8 @@
       width: 60px;
       height: 60px;
       border-radius: 10px;
-      .scroll-top-btn {
+      z-index: 100;
+      ion-icon {
         font-size: 30px;
         color: white;
         font-weight: bold;

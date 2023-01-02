@@ -3,7 +3,7 @@
     <!-- トップスクロール -->
     <div class="scroll-wrapper" @click="scrollTop">
       <div class="scroll-top">
-        <ion-icon name="arrow-up-outline" class="scroll-top-btn"></ion-icon>
+        <ion-icon name="arrow-up-outline"></ion-icon>
       </div>
     </div>
     <!-- メイン -->
