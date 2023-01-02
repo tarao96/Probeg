@@ -123,7 +123,38 @@ export default {
   .latest-articles {
     .article {
       width: 90%;
-      transform: translateX(0);   }
+      transform: translateX(0);
+      h2 {
+        font-size: 1.2em;
+      }
+      .row {
+        flex-direction: column;
+        .card {
+          width: 90%;
+          a {
+            img {
+              height: 100px;
+            }
+          }
+          .article-content {
+            padding: 5px 10px;
+          }
+          .text {
+            font-size: 0.8em;
+            span {
+              margin-bottom: 5px;
+            }
+            .article-title {
+              margin-bottom: 5px;
+              a {
+                margin-bottom: 5px;
+                font-size: 1.0em;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
 </style>

@@ -58,4 +58,12 @@ export default {}
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .about {
+    .about-wrapper {
+      width: 90%;
+    }
+  }
+}
 </style>

@@ -39,4 +39,13 @@ export default {
         border: 1px solid black;
     }
 }
+
+@media screen and (max-width: 768px) {
+  .article-tag {
+    .search-tag {
+      font-size: 0.8em;
+      padding: 5px;
+    }
+  }
+}
 </style>

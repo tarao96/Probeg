@@ -1,26 +1,4 @@
 .content {
-  header {
-    margin: 0px auto;
-    height: 200px;
-    .logo-wrapper {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;C
-      h1.title {
-        font-size: 4rem;
-        padding-bottom: 10px;
-        background: linear-gradient(blue, pink);
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-      .logo img {
-        width: 350px;
-        height: 150px;
-        object-fit: cover;
-      }
-    }
-  }
   article {
     width: 90%;
     padding: 0 auto;
@@ -29,7 +7,7 @@
       z-index: 100;
       position: fixed;
       top: 250px;
-      right: 10%;
+      right: 100px;
       border: 1px solid black;
       background-color: white;
       .table-of-contents {
@@ -249,10 +227,44 @@
       .card {
         transform: translateX(0);
         width: 90%;
+        .heading {
+          .text {
+            flex-direction: column;
+            gap: 30px;
+            align-items: initial;
+          }
+        }
+        .main {
+          .contents {
+            h1 {
+              font-size: 0.8em;
+            }
+            h2 {
+              font-size: 1.3em;
+            }
+            h2::before {
+              content: "";
+              height: 30px;
+            }
+            h3 {
+              font-size: 1.0em;
+            }
+            p {
+              font-size: 0.8em;
+            }
+          }
+        }
       }
     }
     .table-of-contents-wrapper {
       display: none;
+    }
+    .container {
+      .article {
+        h2::after {
+          width: 90px;
+        }
+      }
     }
   }
 }

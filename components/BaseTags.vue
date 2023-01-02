@@ -42,8 +42,9 @@ export default {
   display: flex;
   flex-direction: column;
   color: white;
-  height: 320px;
+  height: 100%;
   margin-top: 50px;
+  padding-bottom: 50px;
   .tags-title {
     text-align: center;
     margin: 50px auto;
@@ -76,6 +77,14 @@ export default {
           color: rgba(132, 78, 226, 0.826);
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .tags {
+    .tags-wrapper {
+      width: 90%;
     }
   }
 }
