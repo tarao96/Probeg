@@ -122,15 +122,17 @@ export default {
 @media screen and (max-width: 1024px) {
   .latest-articles {
     .article {
-      width: 90%;
+      width: 98%;
       transform: translateX(0);
+      padding: 50px 30px;
       h2 {
         font-size: 1.2em;
       }
       .row {
         flex-direction: column;
+        margin-bottom: 0px;
         .card {
-          width: 90%;
+          width: 100%;
           a {
             img {
               height: 100px;

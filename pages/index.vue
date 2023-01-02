@@ -298,7 +298,7 @@ main {
           }
         }
         .article-content {
-          padding: 30px;
+          padding: 30px 30px 0px 30px;
         }
         .tag {
           padding: 0 10px;
@@ -398,6 +398,11 @@ main {
     .container {
       .article-wrapper .row {
         .card {
+          a {
+            img {
+              height: 200px;
+            }
+          }
           .article-content {
             padding: 0 30px;
           }

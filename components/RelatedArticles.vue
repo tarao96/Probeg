@@ -123,11 +123,13 @@ export default {
     .article {
       width: 90%;
       transform: translateX(0);
+      padding: 50px 30px;
       h2 {
         font-size: 1.2em;
       }
       .row {
         flex-direction: column;
+        margin-bottom: 0px;
         .card {
           width: 90%;
           a {
