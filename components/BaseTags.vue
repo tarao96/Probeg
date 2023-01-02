@@ -7,6 +7,9 @@
 
       <div class="tags-wrapper">
         <ul>
+          <li>
+            <p @click="sendReset">全て</p>
+          </li>
           <li v-for="tag in tags" :key="tag.id">
             <p v-on:click="sendTagName(tag.name)">{{ tag.name }}</p>
           </li>
@@ -25,9 +28,11 @@ export default {
   },
   methods: {
     sendTagName(tagName) {
-      console.log('sendTagNameメソッドが発火しました')
       this.$emit('clickTag', tagName)
     },
+    sendReset() {
+      this.$emit('resetTag');
+    }
   },
 }
 </script>

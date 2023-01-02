@@ -66,7 +66,11 @@
       </div>
     </div>
 
-    <base-tags :tags="tags" @clickTag="searchTag"></base-tags>
+    <base-tags
+      :tags="tags"
+      @clickTag="searchTag"
+      @resetTag="resetTag"
+    ></base-tags>
 
     <base-about></base-about>
   </div>
@@ -169,9 +173,9 @@ export default {
 
           // 検索するごとに全ページ数を更新する
           const filterSliceArray = sliceArray.filter((item) => {
-            return item.length > 0;
+            return item.length > 0
           })
-          this.allPages = filterSliceArray.length;
+          this.allPages = filterSliceArray.length
 
           // 表示する配列
           this.searchArticles = this.sliceArray[this.currentPage - 1]
@@ -232,14 +236,11 @@ export default {
     },
     async getAllPages() {
       await this.$axios
-        .get(
-          `${this.$config.apiUrl}/blogs?limit=100`,
-          {
-            headers: {
-              'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
-            },
-          }
-        )
+        .get(`${this.$config.apiUrl}/blogs?limit=100`, {
+          headers: {
+            'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
+          },
+        })
         .then((res) => {
           // 全ページ数を算出する
           const length = 12
@@ -252,19 +253,25 @@ export default {
             sliceArray.push(sliceNumberList)
           }
           const filterSliceArray = sliceArray.filter((item) => {
-            return item.length > 0;
+            return item.length > 0
           })
-          this.allPages = filterSliceArray.length;
+          this.allPages = filterSliceArray.length
         })
+    },
+    resetTag() {
+      this.sliceArray = [];
+      this.getArticles();
+      this.getAllPages();
+      this.paginateFlg = true;
+      window.scroll({ top: 0, behavior: 'smooth' });
     },
   },
   mounted() {
-    this.getArticles();
-    this.getAllPages();
+    this.getArticles()
+    this.getAllPages()
     this.paginateFlg = true
   },
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
