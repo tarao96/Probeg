@@ -66,7 +66,7 @@
           </div>
 
           <div class="currentPage">
-            <p>{{ currentPage }}/7</p>
+            <p>{{ currentPage }}/{{ allPages }}</p>
           </div>
 
           <div class="prevPage" v-if="paginateFlg" @click="prevPage">
@@ -101,6 +101,7 @@ export default {
       tags: [],
       currentPage: 1,
       paginateFlg: true,
+      allPages: '',
     }
   },
   watch: {
@@ -240,9 +241,37 @@ export default {
           this.tags = res.data.contents
         })
     },
+    async getAllPages() {
+      await this.$axios
+        .get(
+          `${this.$config.apiUrl}/blogs?limit=100`,
+          {
+            headers: {
+              'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
+            },
+          }
+        )
+        .then((res) => {
+          // 全ページ数を算出する
+          const length = 12
+          const sliceArray = []
+          for (let i = 0; i < res.data.contents.length; i++) {
+            let sliceNumberList = res.data.contents.slice(
+              i * length,
+              (i + 1) * length
+            )
+            sliceArray.push(sliceNumberList)
+          }
+          const filterSliceArray = sliceArray.filter((item) => {
+            return item.length > 0;
+          })
+          this.allPages = filterSliceArray.length;
+        })
+    },
   },
   mounted() {
-    this.getArticles()
+    this.getArticles();
+    this.getAllPages();
     this.paginateFlg = true
   },
 }
@@ -252,28 +281,6 @@ export default {
 main {
   width: 100%;
   margin: 0 auto;
-  header {
-    margin: 0px auto;
-    height: 200px;
-    .logo-wrapper {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      h1.title {
-        font-size: 4rem;
-        padding-bottom: 10px;
-        background: linear-gradient(blue, pink);
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-      .logo img {
-        width: 350px;
-        height: 150px;
-        object-fit: cover;
-      }
-    }
-  }
   .container {
     width: 90%;
     margin: 50px auto;
@@ -294,6 +301,7 @@ main {
         overflow: hidden;
         background-color: white;
         border-radius: 5%;
+        margin-top: 50px;
         a {
           padding: 0;
           img {
@@ -302,7 +310,7 @@ main {
             object-fit: cover;
           }
           img:hover {
-            transition: .2s;
+            transition: 0.2s;
             transform: scale(1.1);
           }
         }
