@@ -2,7 +2,60 @@
   <div class="contents">
     <!-- メイン -->
     <div class="container">
+      <div>
+        <p class="recommend" style="font-family: sans-serif">
+          <i class="fa-solid fa-hand-point-right"></i
+          ><span class="pick-up">PICK UP | </span> 注目記事
+        </p>
+      </div>
       <div class="article-wrapper">
+        <hooper
+          :playSpeed="5000"
+          :autoPlay="true"
+          :itemsToShow="1"
+          :itemsToSlide="1"
+          :transition="1000"
+        >
+          <slide v-for="article in searchArticles" :key="article.id">
+            <div class="card">
+              <nuxt-link :to="'/contents/' + article.id + '/'">
+                <img
+                  :src="article.eyecatch.url"
+                  class="article-img"
+                  alt="コンテンツ画像"
+                />
+              </nuxt-link>
+              <div
+                class="article-content"
+                :href="'/contents/' + article.id + '/'"
+              >
+                <div class="text">
+                  <span
+                    >{{ article.updatedAt | formatDate }}&emsp;{{
+                      article.author.name
+                    }}</span
+                  >
+                  <div class="article-title">
+                    <nuxt-link
+                      :to="'/contents/' + article.id + '/'"
+                      class="content-title"
+                      ><b>{{ article.title }}</b></nuxt-link
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="tag">
+                <base-tag
+                  :tags="article.category"
+                  @clickTag="searchTag"
+                ></base-tag>
+              </div>
+            </div>
+          </slide>
+        </hooper>
+        <div>
+          <h2>記事一覧</h2>
+        </div>
         <div class="row">
           <div v-for="article in searchArticles" :key="article.id" class="card">
             <nuxt-link :to="'/contents/' + article.id + '/'">
@@ -78,9 +131,11 @@
 
 <script>
 import BaseTag from '../components/Tags/BaseTag.vue'
+import { Hooper, Slide } from 'hooper'
+import 'hooper/dist/hooper.css'
 
 export default {
-  components: { BaseTag },
+  components: { BaseTag, Hooper, Slide },
   layout: 'BaseLayout',
   data() {
     return {
@@ -258,11 +313,11 @@ export default {
         })
     },
     resetTag() {
-      this.sliceArray = [];
-      this.getArticles();
-      this.getAllPages();
-      this.paginateFlg = true;
-      window.scroll({ top: 0, behavior: 'smooth' });
+      this.sliceArray = []
+      this.getArticles()
+      this.getAllPages()
+      this.paginateFlg = true
+      window.scroll({ top: 0, behavior: 'smooth' })
     },
   },
   mounted() {
