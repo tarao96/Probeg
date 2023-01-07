@@ -86,7 +86,7 @@ import BaseTag from '../components/Tags/BaseTag.vue'
 import RecommendArticles from '../components/RecommendArticles.vue'
 
 export default {
-  components: { BaseTag, RecommendArticles},
+  components: { BaseTag, RecommendArticles },
   layout: 'BaseLayout',
   data() {
     return {
@@ -274,24 +274,24 @@ export default {
         .then((res) => {
           // 注目記事に指定された記事だけを取得する。
           const recommendArticles = res.data.contents.filter((item) => {
-            return item.is_recommend;
-          });
+            return item.is_recommend
+          })
 
-          this.recommendArticles = recommendArticles;
-        });
+          this.recommendArticles = recommendArticles
+        })
     },
     resetTag() {
-      this.sliceArray = [];
-      this.getArticles();
-      this.getAllPages();
-      this.paginateFlg = true;
-      window.scroll({ top: 0, behavior: 'smooth' });
+      this.sliceArray = []
+      this.getArticles()
+      this.getAllPages()
+      this.paginateFlg = true
+      window.scroll({ top: 0, behavior: 'smooth' })
     },
   },
   mounted() {
-    this.getArticles();
-    this.getAllPages();
-    this.getRecommendArticles();
+    this.getArticles()
+    this.getAllPages()
+    this.getRecommendArticles()
     this.paginateFlg = true
   },
 }
