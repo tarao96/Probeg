@@ -2,59 +2,11 @@
   <div class="contents">
     <!-- メイン -->
     <div class="container">
-      <div>
-        <p class="recommend" style="font-family: sans-serif">
-          <i class="fa-solid fa-hand-point-right"></i
-          ><span class="pick-up">PICK UP | </span> 注目記事
-        </p>
-      </div>
       <div class="article-wrapper">
-        <hooper
-          :playSpeed="5000"
-          :autoPlay="true"
-          :itemsToShow="1"
-          :itemsToSlide="1"
-          :transition="1000"
-        >
-          <slide v-for="article in searchArticles" :key="article.id">
-            <div class="card">
-              <nuxt-link :to="'/contents/' + article.id + '/'">
-                <img
-                  :src="article.eyecatch.url"
-                  class="article-img"
-                  alt="コンテンツ画像"
-                />
-              </nuxt-link>
-              <div
-                class="article-content"
-                :href="'/contents/' + article.id + '/'"
-              >
-                <div class="text">
-                  <span
-                    >{{ article.updatedAt | formatDate }}&emsp;{{
-                      article.author.name
-                    }}</span
-                  >
-                  <div class="article-title">
-                    <nuxt-link
-                      :to="'/contents/' + article.id + '/'"
-                      class="content-title"
-                      ><b>{{ article.title }}</b></nuxt-link
-                    >
-                  </div>
-                </div>
-              </div>
-              <div class="tag">
-                <base-tag
-                  :tags="article.category"
-                  @clickTag="searchTag"
-                ></base-tag>
-              </div>
-            </div>
-          </slide>
-        </hooper>
-        <div>
-          <h2>記事一覧</h2>
+        <recommend-articles :articles="recommendArticles"></recommend-articles>
+        <div class="index-heading">
+          <h1>記事一覧</h1>
+          <div class="underline"></div>
         </div>
         <div class="row">
           <div v-for="article in searchArticles" :key="article.id" class="card">
@@ -131,16 +83,16 @@
 
 <script>
 import BaseTag from '../components/Tags/BaseTag.vue'
-import { Hooper, Slide } from 'hooper'
-import 'hooper/dist/hooper.css'
+import RecommendArticles from '../components/RecommendArticles.vue'
 
 export default {
-  components: { BaseTag, Hooper, Slide },
+  components: { BaseTag, RecommendArticles},
   layout: 'BaseLayout',
   data() {
     return {
       articles: [],
       searchArticles: [],
+      recommendArticles: [],
       sliceArray: [],
       tags: [],
       currentPage: 1,
@@ -312,17 +264,34 @@ export default {
           this.allPages = filterSliceArray.length
         })
     },
+    async getRecommendArticles() {
+      await this.$axios
+        .get(`${this.$config.apiUrl}/blogs?limit=100`, {
+          headers: {
+            'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
+          },
+        })
+        .then((res) => {
+          // 注目記事に指定された記事だけを取得する。
+          const recommendArticles = res.data.contents.filter((item) => {
+            return item.is_recommend;
+          });
+
+          this.recommendArticles = recommendArticles;
+        });
+    },
     resetTag() {
-      this.sliceArray = []
-      this.getArticles()
-      this.getAllPages()
-      this.paginateFlg = true
-      window.scroll({ top: 0, behavior: 'smooth' })
+      this.sliceArray = [];
+      this.getArticles();
+      this.getAllPages();
+      this.paginateFlg = true;
+      window.scroll({ top: 0, behavior: 'smooth' });
     },
   },
   mounted() {
-    this.getArticles()
-    this.getAllPages()
+    this.getArticles();
+    this.getAllPages();
+    this.getRecommendArticles();
     this.paginateFlg = true
   },
 }
