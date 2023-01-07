@@ -6,7 +6,7 @@ export default {
   head: {
     title: 'probeg',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'ja',
     },
     meta: [
       { charset: 'utf-8' },
@@ -16,12 +16,13 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/github-dark.min.css'}
+      { rel: 'stylesheet', href: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/github-dark.min.css'},
+      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css' }
     ],
     script: [
       { type: 'module', src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js' },
       { src: 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js' },
-      { src: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js' }
+      { src: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js' },
     ]
   },
 

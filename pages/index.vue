@@ -3,6 +3,11 @@
     <!-- メイン -->
     <div class="container">
       <div class="article-wrapper">
+        <recommend-articles :articles="recommendArticles"></recommend-articles>
+        <div class="index-heading">
+          <h1>記事一覧</h1>
+          <div class="underline"></div>
+        </div>
         <div class="row">
           <div v-for="article in searchArticles" :key="article.id" class="card">
             <nuxt-link :to="'/contents/' + article.id + '/'">
@@ -78,14 +83,16 @@
 
 <script>
 import BaseTag from '../components/Tags/BaseTag.vue'
+import RecommendArticles from '../components/RecommendArticles.vue'
 
 export default {
-  components: { BaseTag },
+  components: { BaseTag, RecommendArticles},
   layout: 'BaseLayout',
   data() {
     return {
       articles: [],
       searchArticles: [],
+      recommendArticles: [],
       sliceArray: [],
       tags: [],
       currentPage: 1,
@@ -257,6 +264,22 @@ export default {
           this.allPages = filterSliceArray.length
         })
     },
+    async getRecommendArticles() {
+      await this.$axios
+        .get(`${this.$config.apiUrl}/blogs?limit=100`, {
+          headers: {
+            'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
+          },
+        })
+        .then((res) => {
+          // 注目記事に指定された記事だけを取得する。
+          const recommendArticles = res.data.contents.filter((item) => {
+            return item.is_recommend;
+          });
+
+          this.recommendArticles = recommendArticles;
+        });
+    },
     resetTag() {
       this.sliceArray = [];
       this.getArticles();
@@ -266,8 +289,9 @@ export default {
     },
   },
   mounted() {
-    this.getArticles()
-    this.getAllPages()
+    this.getArticles();
+    this.getAllPages();
+    this.getRecommendArticles();
     this.paginateFlg = true
   },
 }
