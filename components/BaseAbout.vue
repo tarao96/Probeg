@@ -10,10 +10,12 @@
           "Probeg"はプログラミング初学者に向けた、Web開発・Web制作に関するコンテンツを配信する技術ブログです。
         </p>
         <br />
-        <p>
-          本ブログはサーバーサイド言語はPHP/Laravel、フロントエンド言語はVue.js/Nuxt.jsを中心に言語の基本的な仕様からWebアプリケーションの開発やHTML/CSS/JavaScriptを使ったWebサイト制作までを解説してます。
-        </p>
-        <br />
+        <div class="pc">
+          <p>
+            本ブログはサーバーサイド言語はPHP/Laravel、フロントエンド言語はVue.js/Nuxt.jsを中心に言語の基本的な仕様からWebアプリケーションの開発やHTML/CSS/JavaScriptを使ったWebサイト制作までを解説してます。
+          </p>
+          <br />
+        </div>
         <p>
           当サイトはNuxt.jsとheadlessCMSで構築し、Netlifyから配信しています。
         </p>
@@ -63,6 +65,9 @@ export default {}
   .about {
     .about-wrapper {
       width: 90%;
+      .pc {
+        display: none;
+      }
     }
   }
 }
