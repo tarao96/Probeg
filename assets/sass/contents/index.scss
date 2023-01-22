@@ -160,6 +160,70 @@ main {
           }
         }
       }
+      .course-wrapper {
+        margin: 50px 0;
+        .course-heading {
+          margin: 0 auto;
+          margin-top: 50px;
+          width: 180px;
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+          .underline {
+            margin-top: 10px;
+            height: 5px;
+            width: 100%;
+            background: linear-gradient(
+              to right,
+              rgba(83, 102, 212, 0.855),
+              rgb(3, 205, 212)
+            );
+          }
+        }
+        .column {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: 70%;
+          margin: 70px auto;
+          gap: 50px;
+          .course-card {
+            display: flex;
+            gap: 30px;
+            background: #fff;
+            padding: 50px 80px;
+            box-shadow: 0px 0px 10px gray;
+            width: 100%;
+            cursor: pointer;
+            .course-text {
+              width: 60%;
+              padding: 30px;
+              h2 {
+                margin-bottom: 20px;
+              }
+              .language-wrapper {
+                display: flex;
+                justify-content: flex-start;
+                gap: 20px;
+                margin-top: 20px;
+                background: rgba(186, 198, 211, 0.18);
+                padding: 20px 10px;
+                width: 80%;
+                .language-heading {
+                }
+                .language {
+                  display: flex;
+                  margin-left: 30px;
+                  gap: 20px;
+                }
+              }
+            }
+            .course-img {
+              width: 30%;
+            }
+          }
+        }
+      }
       .article-wrapper .paginate {
         position: relative;
         width: 100%;

@@ -69,6 +69,37 @@
           </div>
         </div>
       </div>
+
+      <div class="course-wrapper">
+        <div class="course-heading">
+          <h1>コース一覧</h1>
+          <div class="underline"></div>
+        </div>
+        <div class="column">
+          <div
+            v-for="course in courses"
+            :key="course.id"
+            class="course-card"
+            @click="moveCourseShow(course.id)"
+          >
+            <div class="course-text">
+              <h2>{{ course.title }}</h2>
+              <div v-html="course.description"></div>
+              <div class="language-wrapper">
+                <p class="language-heading">対象言語:</p>
+                <div class="language">
+                  <p v-for="(language, index) in course.languages" :key="index">
+                    {{ language }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="course-img">
+              <img :src="course.img" alt="コース画像" style="width: 400px" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <base-tags
@@ -91,6 +122,7 @@ export default {
   data() {
     return {
       articles: [],
+      allArticles: [],
       searchArticles: [],
       recommendArticles: [],
       sliceArray: [],
@@ -98,6 +130,26 @@ export default {
       currentPage: 1,
       paginateFlg: true,
       allPages: '',
+      courses: [
+        {
+          id: 1,
+          title: 'Webサイト制作コース',
+          description:
+            '<p>このコースではWebサイトを制作するために必要となる知識やテクニックなどを順を追って学習していきます。</p><p>コースを全て終えればWebサイトを実際に作れるように設計しています。</p>',
+          img: './img/web_site.jpg',
+          courseArticles: [],
+          languages: ['HTML', 'CSS', 'JavaScript'],
+        },
+        {
+          id: 2,
+          title: 'Webアプリ開発コース',
+          description:
+            '<p>このコースではWebアプリ開発に必要となる知識を学習することができます。</p><p>PHP/Laravelを使いこなして簡単なWebアプリを開発してみましょう！</p>',
+          img: './img/web_app.jpg',
+          courseArticles: [],
+          languages: ['HTML', 'CSS', 'PHP', 'Laravel'],
+        },
+      ],
     }
   },
   watch: {
@@ -251,6 +303,7 @@ export default {
           // 全ページ数を算出する
           const length = 12
           const sliceArray = []
+          this.allArticles = res.data.contents
           for (let i = 0; i < res.data.contents.length; i++) {
             let sliceNumberList = res.data.contents.slice(
               i * length,
@@ -286,6 +339,9 @@ export default {
       this.getAllPages()
       this.paginateFlg = true
       window.scroll({ top: 0, behavior: 'smooth' })
+    },
+    moveCourseShow(courseId) {
+      this.$router.push(`/courses/${courseId}`)
     },
   },
   mounted() {

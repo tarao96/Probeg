@@ -1,0 +1,64 @@
+#course {
+  .container {
+    width: 70%;
+    margin: 0 auto;
+    .header {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 50px;
+      .header-text {
+        width: 50%;
+        h1 {
+          margin-bottom: 20px;
+        }
+        p {
+          font-size: 1.2em;
+        }
+        .language-wrapper {
+          display: flex;
+          justify-content: flex-start;
+          gap: 20px;
+          margin-top: 20px;
+          background: rgba(186, 198, 211, 0.18);
+          padding: 20px 10px;
+          width: 80%;
+          .language-heading {
+          }
+          .language {
+            display: flex;
+            margin-left: 30px;
+            gap: 20px;
+          }
+        }
+        .progress {
+          margin-top: 30px;
+        }
+      }
+      .header-img {
+        width: 30%;
+        img {
+          width: 600px;
+          border-radius: 15px;
+        }
+      }
+    }
+    .main {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 100px;
+      width: 100%;
+      .guide {
+        width: 30%;
+      }
+      .card-wrapper {
+        width: 60%;
+        .card {
+          background: #fff;
+          padding: 50px 80px;
+          box-shadow: 0px 0px 10px gray;
+          margin-bottom: 50px;
+        }
+      }
+    }
+  }
+}
