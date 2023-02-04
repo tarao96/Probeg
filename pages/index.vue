@@ -72,7 +72,7 @@
 
       <div class="course-wrapper">
         <div class="course-heading">
-          <h1>コース一覧</h1>
+          <p>コース一覧</p>
           <div class="underline"></div>
         </div>
         <div class="column">

@@ -3,6 +3,7 @@ $palegreen: #98E698;
 $darkgreen: #228F22;
 $fontcolor: #00a562;
 $background: #e3f3e5;
+$border-color: #bac6d3;
 
 #course {
   .container {
@@ -100,7 +101,7 @@ $background: #e3f3e5;
             top: 65px;
             width: 90%;
             height: 2px;
-            background: $limegreen;
+            background: $border-color;
           }
           .description {
             margin-left: 30px;
