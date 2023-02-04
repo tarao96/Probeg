@@ -1,3 +1,8 @@
+$limegreen: limegreen;
+$palegreen: #98E698;
+$darkgreen: #228F22;
+$headfont: '';
+
 // ヘッダー
 header {
   margin: 0px auto;
@@ -10,7 +15,7 @@ header {
     h1.title {
       font-size: 4rem;
       padding-bottom: 10px;
-      background: linear-gradient(blue, pink);
+      background: linear-gradient($darkgreen, $palegreen);
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }

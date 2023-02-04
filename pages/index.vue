@@ -5,7 +5,7 @@
       <div class="article-wrapper">
         <recommend-articles :articles="recommendArticles"></recommend-articles>
         <div class="index-heading">
-          <h1>記事一覧</h1>
+          <p>記事一覧</p>
           <div class="underline"></div>
         </div>
         <div class="row">
@@ -140,15 +140,15 @@ export default {
           courseArticles: [],
           languages: ['HTML', 'CSS', 'JavaScript'],
         },
-        {
-          id: 2,
-          title: 'Webアプリ開発コース',
-          description:
-            '<p>このコースではWebアプリ開発に必要となる知識を学習することができます。</p><p>PHP/Laravelを使いこなして簡単なWebアプリを開発してみましょう！</p>',
-          img: './img/web_app.jpg',
-          courseArticles: [],
-          languages: ['HTML', 'CSS', 'PHP', 'Laravel'],
-        },
+        // {
+        //   id: 2,
+        //   title: 'Webアプリ開発コース',
+        //   description:
+        //     '<p>このコースではWebアプリ開発に必要となる知識を学習することができます。</p><p>PHP/Laravelを使いこなして簡単なWebアプリを開発してみましょう！</p>',
+        //   img: './img/web_app.jpg',
+        //   courseArticles: [],
+        //   languages: ['HTML', 'CSS', 'PHP', 'Laravel'],
+        // },
       ],
     }
   },

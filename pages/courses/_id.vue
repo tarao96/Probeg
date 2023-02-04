@@ -13,16 +13,6 @@
               </p>
             </div>
           </div>
-          <div class="progress">
-            <p>
-              STEP
-              <span style="font-size: 1.2em">{{
-                compContentsLength(this.$route.params.id)
-              }}</span>
-              /
-              {{ stepLength }}
-            </p>
-          </div>
         </div>
         <div class="header-img">
           <img :src="course.img" alt="Webサイト制作コース画像" />
@@ -31,15 +21,43 @@
       <div class="main">
         <div class="guide">
           <ul>
-            <li v-for="step in course.steps" :key="step.step">
+            <li
+              v-for="step in course.steps"
+              :key="step.step"
+              @click="scrollTo(step.step)"
+            >
               {{ step.title }}
             </li>
           </ul>
         </div>
         <div class="card-wrapper">
-          <div class="card" v-for="step in course.steps" :key="step.step">
-            <h2>STEP {{ step.step }} {{ step.title }}</h2>
-            <p v-html="step.description"></p>
+          <div
+            class="card"
+            :id="`card${step.step}`"
+            v-for="(step, index) in course.steps"
+            :key="step.step"
+          >
+            <h2 class="step-heading">STEP {{ step.step }} {{ step.title }}</h2>
+            <div class="description">
+              <p v-html="step.description"></p>
+            </div>
+            <div v-if="step.contents.eyecatch" class="contents">
+              <img
+                :src="step.contents.eyecatch.url"
+                alt=""
+                class="contents-img"
+              />
+              <div class="contents-text">
+                <span>{{ step.contents.title }}</span>
+                <div v-html="step.contents.content"></div>
+              </div>
+              <nuxt-link
+                v-if="step.contents.id"
+                :to="'/contents/' + step.contents.id + '/'"
+                >続きを読む</nuxt-link
+              >
+            </div>
+            <div v-if="course.steps.length - 1 !== index" class="triangle"></div>
           </div>
         </div>
       </div>
@@ -50,10 +68,43 @@
 <script>
 export default {
   layout: 'BaseLayout',
+  async asyncData({ $axios, route, $config }) {
+    const url = `${$config.apiUrl}/blogs?limit=100&filters=`
+    const params = {
+      limit: 100,
+      filters: `course_id[equals]${route.params.id}`,
+    }
+
+    const responses = await $axios.get(url, {
+      params,
+      headers: { 'X-MICROCMS-API-KEY': `${$config.apiKey}` },
+    })
+    return {
+      apiResponses: responses.data.contents,
+    }
+  },
+  async mounted() {
+    const course = this.courses.filter((item) => {
+      return this.$route.params.id == item.id
+    })
+    this.course = course[0]
+    this.stepLength = this.course.steps.length
+    // データ内のタイトルと一致するコンテンツがあればコンテンツ配列に格納する
+    if (this.course) {
+      this.course.steps.forEach((item) => {
+        this.apiResponses.forEach((data) => {
+          if (item.title == data.title) {
+            item.contents = data
+          }
+        })
+      })
+    }
+  },
   data() {
     return {
       course: {},
       stepLength: 0,
+      apiResponses: [],
       courses: [
         {
           id: 1,
@@ -170,13 +221,12 @@ export default {
       })
       return compWebSiteStep.length
     },
-  },
-  mounted() {
-    const course = this.courses.filter((item) => {
-      return this.$route.params.id == item.id
-    })
-    this.course = course[0]
-    this.stepLength = this.course.steps.length
+    scrollTo(step) {
+      const element = document.getElementById(`card${step}`)
+      element.scrollIntoView({
+        behavior: 'smooth',
+      })
+    },
   },
 }
 </script>

@@ -1,40 +1,63 @@
+$limegreen: limegreen;
+$palegreen: #98E698;
+$darkgreen: #228F22;
+$fontcolor: #00a562;
+
 main {
   .contents {
     width: 100%;
     margin: 0 auto;
     .container {
-      width: 90%;
+      width: 70%;
       margin: 50px auto;
-      .recommend {
-        text-align: center;
-        font-size: 25px;
-        .fa-hand-point-right {
-          color: gray;
-          margin-right: 20px;
-          font-size: 30px;
+      .recommend-wrapper {
+        width: 320px;
+        .recommend {
+          font-size: 25px;
+          color: black;
+          margin-left: 30px;
+          .fa-hand-point-right {
+            color: gray;
+            margin-right: 20px;
+            font-size: 30px;
+          }
+          .pick-up {
+            font-size: 30px;
+            font-weight: 400;
+            color: black;
+          }
         }
-        .pick-up {
-          font-size: 30px;
-          font-weight: 400;
+        .underline {
+          margin-top: 10px;
+          height: 5px;
+          width: 100%;
+          background: linear-gradient(
+            to right,
+            $darkgreen,
+            $limegreen
+          );
         }
       }
       .article-wrapper {
         margin: 50px 0;
         .index-heading {
-          margin: 0 auto;
           margin-top: 50px;
+          margin-left: 30px;
           width: 180px;
           display: flex;
           flex-direction: column;
           text-align: center;
+          color: black;
+          font-weight: 100;
+          font-size: 2em;
           .underline {
             margin-top: 10px;
             height: 5px;
             width: 100%;
             background: linear-gradient(
               to right,
-              rgba(83, 102, 212, 0.855),
-              rgb(3, 205, 212)
+              $darkgreen,
+              $limegreen
             );
           }
         }
@@ -163,7 +186,7 @@ main {
       .course-wrapper {
         margin: 50px 0;
         .course-heading {
-          margin: 0 auto;
+          margin-left: 30px;
           margin-top: 50px;
           width: 180px;
           display: flex;
@@ -175,8 +198,8 @@ main {
             width: 100%;
             background: linear-gradient(
               to right,
-              rgba(83, 102, 212, 0.855),
-              rgb(3, 205, 212)
+              $darkgreen,
+              $limegreen
             );
           }
         }
@@ -184,8 +207,8 @@ main {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-          width: 70%;
-          margin: 70px auto;
+          width: 100%;
+          margin: 70px 0;
           gap: 50px;
           .course-card {
             display: flex;

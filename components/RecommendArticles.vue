@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div>
+    <div class="recommend-wrapper">
       <p class="recommend" style="font-family: sans-serif">
-        <i class="fa-solid fa-hand-point-right"></i
-        ><span class="pick-up">PICK UP | </span> 注目記事
+        <span class="pick-up">PICK UP | </span> 注目記事
       </p>
+      <div class="underline"></div>
     </div>
     <hooper
       :playSpeed="5000"
