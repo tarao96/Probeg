@@ -4,7 +4,7 @@
     <div class="container">
       <div class="article-wrapper">
         <recommend-articles :articles="recommendArticles"></recommend-articles>
-        <div class="index-heading">
+        <div class="index-heading" id="article-heading">
           <p>記事一覧</p>
           <div class="underline"></div>
         </div>
@@ -162,7 +162,7 @@ export default {
           this.paginateFlg =
             this.sliceArray[newValue].length == 0 ? false : true
         }
-        window.scroll({ top: 0, behavior: 'smooth' })
+        this.scrollTo('article-heading')
       } else {
         await this.$axios
           .get(
@@ -181,18 +181,25 @@ export default {
             this.searchArticles = res.data.contents
 
             // 次ページのコンテンツがない場合はolderボタンを削除する
-            if (res.data.contents.length < 9) {
+            const countPerPage = 12 // １ページで表示するコンテンツの数
+            if (res.data.contents.length <= countPerPage) {
               this.paginateFlg = false
             } else {
               this.paginateFlg = true
             }
 
-            window.scroll({ top: 0, behavior: 'smooth' })
+            this.scrollTo('article-heading')
           })
       }
     },
   },
   methods: {
+    scrollTo(id) {
+      const element = document.getElementById(id)
+      element.scrollIntoView({
+        behavior: 'smooth',
+      })
+    },
     async searchTag(tagName) {
       console.log(tagName)
       await this.$axios
@@ -247,7 +254,7 @@ export default {
             this.paginateFlg = false
           }
 
-          window.scroll({ top: 0, behavior: 'smooth' })
+          this.scrollTo('article-heading')
         })
     },
     prevPage() {
@@ -338,7 +345,7 @@ export default {
       this.getArticles()
       this.getAllPages()
       this.paginateFlg = true
-      window.scroll({ top: 0, behavior: 'smooth' })
+      this.scrollTo('article-heading')
     },
     moveCourseShow(courseId) {
       this.$router.push(`/courses/${courseId}`)
