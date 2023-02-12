@@ -2,7 +2,7 @@
   <div>
     <div class="recommend-wrapper">
       <p class="recommend" style="font-family: sans-serif">
-        <span class="pick-up">PICK UP | </span> 注目記事
+        <span class="pick-up">PICK UP</span>
       </p>
       <div class="underline"></div>
     </div>
@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       swiperOption: {
-        slidesPerView: 3,
+        slidesPerView: 1,
         speed: 1000, //スライドの切り替わりスピード
         spaceBetween: 30, //各スライドの余白
         centeredSlides: true, //スライダーを真ん中に
@@ -76,7 +76,7 @@ export default {
             slidesPerView: 3,
           },
           768: {
-            slidesPerView: 2,
+            slidesPerView: 1,
           },
           420: {
             slidesPerView: 1,

@@ -1,7 +1,8 @@
 $limegreen: limegreen;
-$palegreen: #98e698;
-$darkgreen: #228f22;
-$fontcolor: #00a562;
+$palegreen: #98E698;
+$darkgreen: #228F22;
+$mainColor: #1ac067;
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
 main {
   .contents {
@@ -10,56 +11,32 @@ main {
     .container {
       width: 70%;
       margin: 50px auto;
-      .recommend-wrapper {
-        width: 320px;
-        .recommend {
-          font-size: 25px;
-          color: black;
-          margin-left: 60px;
-          .fa-hand-point-right {
-            color: gray;
-            margin-right: 20px;
-            font-size: 30px;
-          }
-          .pick-up {
-            font-size: 30px;
-            font-weight: 400;
-            color: black;
-          }
-        }
-        .underline {
-          margin-top: 10px;
-          height: 5px;
-          width: 100%;
-          margin-left: 30px;
-          background: linear-gradient(to right, $darkgreen, $limegreen);
-        }
-      }
       .article-wrapper {
         margin: 50px 0;
         .index-heading {
           margin-top: 150px;
-          margin-left: 30px;
-          width: 180px;
-          display: flex;
-          flex-direction: column;
-          text-align: center;
-          color: black;
-          font-weight: 100;
-          font-size: 2em;
-          .underline {
-            margin-top: 10px;
-            height: 5px;
-            width: 100%;
-            background: linear-gradient(to right, $darkgreen, $limegreen);
+          // .underline {
+          //   margin-top: 10px;
+          //   height: 5px;
+          //   width: 100%;
+          //   background: linear-gradient(to right, $darkgreen, $limegreen);
+          // }
+          span {
+            font-family: 'Caveat', cursive;
+            padding: 20px;
+            padding-right: 30px;
+            background: $darkgreen;
+            font-size: 2em;
+            color: white;
+            font-weight: 100;
           }
         }
         .row {
           display: flex;
-          justify-content: space-around;
+          // justify-content: space-around;
           flex-wrap: wrap;
           margin: 0;
-          gap: 50px 10px;
+          gap: 50px;
           .card {
             display: flex;
             flex-direction: column;
@@ -73,69 +50,6 @@ main {
             background-color: white;
             border-radius: 5%;
             margin-top: 50px;
-            a {
-              padding: 0;
-              img {
-                height: 250px;
-                width: 100%;
-                object-fit: center;
-              }
-              img:hover {
-                transition: 0.2s;
-                transform: scale(1.1);
-              }
-            }
-            .article-content {
-              padding: 30px 30px 0px 30px;
-            }
-            .tag {
-              padding: 0 30px;
-            }
-            .text {
-              padding: 0px;
-              background-color: #fff;
-              a:hover {
-                opacity: 0.8;
-              }
-              span {
-                display: block;
-                color: rgba(136, 132, 132, 0.8);
-                margin-bottom: 20px;
-              }
-              .article-title {
-                margin-bottom: 30px;
-                a {
-                  margin-bottom: 30px;
-                  // border: none;
-                  color: black;
-                  font-size: 1.2rem;
-                }
-              }
-            }
-          }
-        }
-
-        .pickup-wrapper {
-          width: 100%;
-          height: 600px;
-          margin: 0 auto;
-          margin-top: 30px;
-          display: flex;
-          .card {
-            display: flex;
-            flex-direction: column;
-            width: 400px;
-            height: 500px;
-            padding: 0px;
-            padding-bottom: 20px;
-            border: 1px solid rgba(182, 178, 178, 0.903);
-            box-shadow: 0 0 8px rgb(123, 122, 122);
-            overflow: hidden;
-            background-color: white;
-            border-radius: 5%;
-            margin: 0px auto;
-            margin-top: 30px;
-            transition: 1s;
             a {
               padding: 0;
               img {
@@ -178,136 +92,72 @@ main {
           }
         }
         .paginate {
-          margin-top: 50px;
-          .currentPage {
-            font-size: 1.5em;
-          }
-        }
-      }
-      .course-wrapper {
-        margin: 150px 0;
-        .course-heading {
-          margin-left: 30px;
-          width: 180px;
-          display: flex;
-          flex-direction: column;
-          text-align: center;
-          p {
-            font-size: 2em;
-            font-weight: 100;
-          }
-          .underline {
-            margin-top: 10px;
-            height: 5px;
-            width: 100%;
-            background: linear-gradient(to right, $darkgreen, $limegreen);
-          }
-        }
-        .column {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
+          position: relative;
           width: 100%;
-          margin: 50px 0;
-          gap: 50px;
-          .course-card {
-            display: flex;
-            gap: 30px;
-            background: #fff;
-            padding: 50px 80px;
-            box-shadow: 0px 0px 10px gray;
-            width: 100%;
+          height: 100px;
+          margin-top: 50px;
+          .nextPage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            margin: 0;
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+            padding: 5px 10px;
             cursor: pointer;
-            .course-text {
-              width: 60%;
-              padding: 30px;
-              h2 {
-                margin-bottom: 20px;
-              }
-              .language-wrapper {
-                display: flex;
-                justify-content: flex-start;
-                gap: 20px;
-                margin-top: 20px;
-                background: rgba(186, 198, 211, 0.18);
-                padding: 20px 10px;
-                width: 80%;
-                .language-heading {
-                }
-                .language {
-                  display: flex;
-                  margin-left: 30px;
-                  gap: 20px;
-                }
+            .nextPage-inner {
+              display: flex;
+              justify-content: space-between;
+              .icon {
+                padding-top: 3px;
               }
             }
-            .course-img {
-              width: 30%;
+          }
+          .currentPage {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 100px;
+            margin: 0;
+            font-size: 1.2em;
+            span {
+              font-size: 1.5em;
             }
           }
-        }
-      }
-      .article-wrapper .paginate {
-        position: relative;
-        width: 100%;
-        height: 100px;
-        .nextPage {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100px;
-          margin: 0;
-          background-color: white;
-          color: black;
-          border: 1px solid black;
-          padding: 5px 10px;
-          cursor: pointer;
-          .nextPage-inner {
-            display: flex;
-            justify-content: space-between;
-            .icon {
-              padding-top: 3px;
+          .prevPage {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            margin: 0;
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+            padding: 5px 10px;
+            cursor: pointer;
+            .prevPage-inner {
+              display: flex;
+              justify-content: space-between;
+              .icon {
+                padding-top: 3px;
+              }
             }
           }
-        }
-        .currentPage {
-          position: absolute;
-          top: 0;
-          left: 50%;
-          width: 100px;
-          margin: 0;
-        }
-        .prevPage {
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 100px;
-          margin: 0;
-          background-color: white;
-          color: black;
-          border: 1px solid black;
-          padding: 5px 10px;
-          cursor: pointer;
-          .prevPage-inner {
-            display: flex;
-            justify-content: space-between;
-            .icon {
-              padding-top: 3px;
-            }
-          }
-        }
-        .nextPage:hover {
-          background-color: black;
-          color: white;
-          .icon {
+          .nextPage:hover {
+            background-color: black;
             color: white;
+            .icon {
+              color: white;
+            }
           }
-        }
-        .prevPage:hover {
-          background-color: black;
-          color: white;
-          .icon {
+          .prevPage:hover {
+            background-color: black;
             color: white;
+            .icon {
+              color: white;
+            }
           }
         }
       }
@@ -319,58 +169,25 @@ main {
   main {
     .contents {
       .container {
-        .recommend {
-          text-align: center;
-          font-size: 15px;
-          .fa-hand-point-right {
-            color: gray;
-            margin-right: 10px;
-            font-size: 20px;
-          }
-          .pick-up {
-            font-size: 20px;
-            font-weight: 300;
-          }
-        }
         .article-wrapper {
-          margin-top: 10px;
+          margin-top: 100px;
           .index-heading {
             margin: 0 auto;
             margin-top: 50px;
             width: 150px;
             font-size: 15px;
+            text-align: center;
+            span {
+              font-size: 1.5em;
+              padding: 10px;
+            }
             .underline {
               margin-top: 5px;
               height: 5px;
             }
           }
-          .hooper {
-            height: 400px;
-            margin-top: 10px;
-            .hooper-list .hooper-track .hooper-slide .card {
-              width: 300px;
-              height: 350px;
-              margin-top: 0;
-              a {
-                img {
-                  height: 180px;
-                }
-              }
-              .article-content {
-                padding: 0 30px;
-              }
-              .tag {
-                padding: 0 30px;
-              }
-              .text {
-                margin-top: 10px;
-                .article-title {
-                  margin-bottom: 10px;
-                }
-              }
-            }
-          }
           .row {
+            margin-top: 30px;
             .card {
               width: 300px;
               height: 100%;
@@ -391,6 +208,15 @@ main {
                 .article-title {
                   margin-bottom: 10px;
                 }
+              }
+            }
+          }
+          .paginate {
+            .currentPage {
+              font-size: 1.2em;
+              left: 40%;
+              span {
+                font-size: 1.5em;
               }
             }
           }

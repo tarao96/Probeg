@@ -70,7 +70,7 @@ export default {
       width: 40%;
       height: 100%;
       padding: 0px;
-      padding-bottom: 10px;
+      padding-bottom: 30px;
       border: 1px solid rgba(182, 178, 178, 0.903);
       box-shadow: 0 0 8px rgb(123, 122, 122);
       overflow: hidden;

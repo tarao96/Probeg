@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <hamburger-menu></hamburger-menu>
     <base-heading></base-heading>
     <main>
       <!-- トップスクロール -->

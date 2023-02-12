@@ -1,7 +1,7 @@
 $limegreen: limegreen;
 $palegreen: #98E698;
 $darkgreen: #228F22;
-$fontcolor: #00a562;
+$mainColor: #1ac067;
 
 .content {
   article {
@@ -133,7 +133,7 @@ $fontcolor: #00a562;
             display: inline-block;
             margin: 20px 0;
             padding: 10px 10px 5px 10px;
-            border-bottom: 2px solid rgb(166, 159, 159);
+            border-bottom: 2px solid $mainColor;
           }
           img {
             width: 80%;

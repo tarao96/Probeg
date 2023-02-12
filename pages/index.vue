@@ -1,11 +1,13 @@
 <template>
   <div class="contents">
+    <!-- サイドバー -->
+
     <!-- メイン -->
     <div class="container">
+      <recommend-articles :articles="recommendArticles"></recommend-articles>
       <div class="article-wrapper">
-        <recommend-articles :articles="recommendArticles"></recommend-articles>
         <div class="index-heading" id="article-heading">
-          <p>記事一覧</p>
+          <span>INDEX</span>
           <div class="underline"></div>
         </div>
         <div class="row">
@@ -56,7 +58,7 @@
           </div>
 
           <div class="currentPage">
-            <p>{{ currentPage }}/{{ allPages }}</p>
+            <p><span>{{ currentPage }}</span> / {{ allPages }}</p>
           </div>
 
           <div class="prevPage" v-if="paginateFlg" @click="prevPage">
@@ -70,7 +72,7 @@
         </div>
       </div>
 
-      <div class="course-wrapper">
+      <!-- <div class="course-wrapper">
         <div class="course-heading">
           <p>コース一覧</p>
           <div class="underline"></div>
@@ -99,16 +101,16 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
-    <base-tags
+    <!-- <base-tags
       :tags="tags"
       @clickTag="searchTag"
       @resetTag="resetTag"
     ></base-tags>
 
-    <base-about></base-about>
+    <base-about></base-about> -->
   </div>
 </template>
 
@@ -166,7 +168,7 @@ export default {
       } else {
         await this.$axios
           .get(
-            `${this.$config.apiUrl}/blogs?limit=12&offset=${
+            `${this.$config.apiUrl}/blogs?limit=13&offset=${
               (newValue - 1) * 12
             }`,
             {
@@ -177,12 +179,12 @@ export default {
           )
           .then((res) => {
             console.log(res.data.contents)
-            this.articles = res.data.contents
-            this.searchArticles = res.data.contents
+            this.articles = res.data.contents.slice(0, 12);
+            this.searchArticles = res.data.contents.slice(0, 12);
 
             // 次ページのコンテンツがない場合はolderボタンを削除する
             const countPerPage = 12 // １ページで表示するコンテンツの数
-            if (res.data.contents.length <= countPerPage) {
+            if (typeof(res.data.contents[countPerPage]) == 'undefined') {
               this.paginateFlg = false
             } else {
               this.paginateFlg = true
