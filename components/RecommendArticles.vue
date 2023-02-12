@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="tag">
-          <base-tag :tags="article.category" @clickTag="searchTag"></base-tag>
+          <base-tag :tags="article.category"></base-tag>
         </div>
       </swiper-slide>
       <div slot="pagination" class="swiper-pagination" />

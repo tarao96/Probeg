@@ -15,11 +15,6 @@ export default {
       type: Array,
     },
   },
-  methods: {
-    searchByTagName(tagName) {
-        this.$emit('clickTag', tagName);
-    }
-  }
 }
 </script>
 

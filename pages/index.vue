@@ -1,7 +1,5 @@
 <template>
   <div class="contents">
-    <!-- サイドバー -->
-
     <!-- メイン -->
     <div class="container">
       <recommend-articles :articles="recommendArticles"></recommend-articles>
@@ -39,10 +37,7 @@
               </div>
             </div>
             <div class="tag">
-              <base-tag
-                :tags="article.category"
-                @clickTag="searchTag"
-              ></base-tag>
+              <base-tag :tags="article.category"></base-tag>
             </div>
           </div>
         </div>
@@ -58,7 +53,9 @@
           </div>
 
           <div class="currentPage">
-            <p><span>{{ currentPage }}</span> / {{ allPages }}</p>
+            <p>
+              <span>{{ currentPage }}</span> / {{ allPages }}
+            </p>
           </div>
 
           <div class="prevPage" v-if="paginateFlg" @click="prevPage">
@@ -71,45 +68,12 @@
           </div>
         </div>
       </div>
-
-      <!-- <div class="course-wrapper">
-        <div class="course-heading">
-          <p>コース一覧</p>
-          <div class="underline"></div>
-        </div>
-        <div class="column">
-          <div
-            v-for="course in courses"
-            :key="course.id"
-            class="course-card"
-            @click="moveCourseShow(course.id)"
-          >
-            <div class="course-text">
-              <h2>{{ course.title }}</h2>
-              <div v-html="course.description"></div>
-              <div class="language-wrapper">
-                <p class="language-heading">対象言語:</p>
-                <div class="language">
-                  <p v-for="(language, index) in course.languages" :key="index">
-                    {{ language }}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="course-img">
-              <img :src="course.img" alt="コース画像" style="width: 400px" />
-            </div>
-          </div>
-        </div>
-      </div> -->
     </div>
-
     <!-- <base-tags
       :tags="tags"
       @clickTag="searchTag"
       @resetTag="resetTag"
     ></base-tags>
-
     <base-about></base-about> -->
   </div>
 </template>
@@ -179,12 +143,12 @@ export default {
           )
           .then((res) => {
             console.log(res.data.contents)
-            this.articles = res.data.contents.slice(0, 12);
-            this.searchArticles = res.data.contents.slice(0, 12);
+            this.articles = res.data.contents.slice(0, 12)
+            this.searchArticles = res.data.contents.slice(0, 12)
 
             // 次ページのコンテンツがない場合はolderボタンを削除する
             const countPerPage = 12 // １ページで表示するコンテンツの数
-            if (typeof(res.data.contents[countPerPage]) == 'undefined') {
+            if (typeof res.data.contents[countPerPage] == 'undefined') {
               this.paginateFlg = false
             } else {
               this.paginateFlg = true
@@ -202,63 +166,63 @@ export default {
         behavior: 'smooth',
       })
     },
-    async searchTag(tagName) {
-      console.log(tagName)
-      await this.$axios
-        .get(`${this.$config.apiUrl}/blogs?limit=100`, {
-          headers: {
-            'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
-          },
-        })
-        .then((res) => {
-          console.log(res.data.contents)
-          const searchResults = res.data.contents.filter((article) => {
-            const array = []
-            article.category.forEach((item) => {
-              if (item.name.indexOf(tagName) !== -1) {
-                array.push(item)
-              }
-            })
-            return array.length > 0
-          })
+    // async searchTag(tagName) {
+    //   console.log(tagName)
+    //   await this.$axios
+    //     .get(`${this.$config.apiUrl}/blogs?limit=100`, {
+    //       headers: {
+    //         'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
+    //       },
+    //     })
+    //     .then((res) => {
+    //       console.log(res.data.contents)
+    //       const searchResults = res.data.contents.filter((article) => {
+    //         const array = []
+    //         article.category.forEach((item) => {
+    //           if (item.name.indexOf(tagName) !== -1) {
+    //             array.push(item)
+    //           }
+    //         })
+    //         return array.length > 0
+    //       })
 
-          console.log(searchResults)
+    //       console.log(searchResults)
 
-          const length = 12
-          const sliceArray = []
-          for (let i = 0; i < searchResults.length; i++) {
-            let sliceNumberList = searchResults.slice(
-              i * length,
-              (i + 1) * length
-            )
-            sliceArray.push(sliceNumberList)
-          }
-          console.log(sliceArray)
+    //       const length = 12
+    //       const sliceArray = []
+    //       for (let i = 0; i < searchResults.length; i++) {
+    //         let sliceNumberList = searchResults.slice(
+    //           i * length,
+    //           (i + 1) * length
+    //         )
+    //         sliceArray.push(sliceNumberList)
+    //       }
+    //       console.log(sliceArray)
 
-          // 分割した全体の配列
-          this.sliceArray = sliceArray
+    //       // 分割した全体の配列
+    //       this.sliceArray = sliceArray
 
-          // 検索するごとに全ページ数を更新する
-          const filterSliceArray = sliceArray.filter((item) => {
-            return item.length > 0
-          })
-          this.allPages = filterSliceArray.length
+    //       // 検索するごとに全ページ数を更新する
+    //       const filterSliceArray = sliceArray.filter((item) => {
+    //         return item.length > 0
+    //       })
+    //       this.allPages = filterSliceArray.length
 
-          // 表示する配列
-          this.searchArticles = this.sliceArray[this.currentPage - 1]
+    //       // 表示する配列
+    //       this.searchArticles = this.sliceArray[this.currentPage - 1]
 
-          if (this.currentPage > 1) {
-            this.currentPage = 1
-          }
+    //       if (this.currentPage > 1) {
+    //         this.currentPage = 1
+    //       }
 
-          // 表示コンテンツが12記事以下ならolderボタンを削除する
-          if (this.sliceArray[0].length < 12) {
-            this.paginateFlg = false
-          }
+    //       // 表示コンテンツが12記事以下ならolderボタンを削除する
+    //       if (this.sliceArray[0].length < 12) {
+    //         this.paginateFlg = false
+    //       }
 
-          this.scrollTo('article-heading')
-        })
-    },
+    //       this.scrollTo('article-heading')
+    //     })
+    // },
     prevPage() {
       this.currentPage += 1
     },
