@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="hamburger-wrapper" v-show="!isShow" @click="isShow = !isShow">
+    <div class="hamburger-wrapper" v-show="!isShow" @click="changeShow">
       <div class="hamburger">
         <div class="border"></div>
         <div class="border"></div>
@@ -9,7 +9,7 @@
     </div>
     <div class="menu-wrapper" v-show="isShow">
       <div class="menu">
-        <div class="menu-head" @click="isShow = !isShow">
+        <div class="menu-head" @click="changeShow">
           <p>MENU</p>
           <span class="close-btn"></span>
         </div>
@@ -58,5 +58,11 @@ export default {
       isShow: false,
     }
   },
+  methods: {
+    changeShow() {
+      console.log('表示が切り替わりました。');
+      this.isShow = !this.isShow;
+    }
+  }
 }
 </script>
