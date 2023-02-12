@@ -58,7 +58,6 @@ export default {
   data() {
     return {
       swiperOption: {
-        slidesPerView: 1,
         speed: 1000, //スライドの切り替わりスピード
         spaceBetween: 30, //各スライドの余白
         centeredSlides: true, //スライダーを真ん中に
