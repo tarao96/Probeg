@@ -211,6 +211,7 @@ export default {
 
           // 表示する配列
           this.searchArticles = this.sliceArray[this.currentPage - 1]
+          console.log(this.searchArticles);
 
           if (this.currentPage > 1) {
             this.currentPage = 1
