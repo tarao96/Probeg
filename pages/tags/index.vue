@@ -25,6 +25,7 @@
               googleappsscriptCount
             }}</span>
             <span v-if="tag.name == 'LINE Bot'">{{ linebotCount }}</span>
+            <span v-if="tag.name == 'VSCode'">{{ vscodeCount }}</span>
           </div>
         </div>
       </div>
@@ -63,6 +64,7 @@ export default {
       laravelCount: 0,
       googleappsscriptCount: 0,
       linebotCount: 0,
+      vscodeCount: 0
     }
   },
   mounted() {
@@ -75,6 +77,7 @@ export default {
       'Laravel',
       'GoogleAppsScript',
       'LINE Bot',
+      'VSCode'
     ]
     for (let i = 0; i < tagArray.length; i++) {
       this.countTagArticles(tagArray[i])
@@ -112,6 +115,9 @@ export default {
           break
         case 'LINE Bot':
           this.linebotCount = filterArticles.length
+          break
+        case 'VSCode':
+          this.vscodeCount = filterArticles.length
           break
       }
     },
