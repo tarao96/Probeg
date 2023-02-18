@@ -94,7 +94,7 @@ export default {
       sliceArray: [],
       tags: [],
       currentPage: 1,
-      paginateFlg: true,
+      paginateFlg: false,
       allPages: '',
       courses: [
         {
@@ -211,7 +211,7 @@ export default {
 
           // 表示する配列
           this.searchArticles = this.sliceArray[this.currentPage - 1]
-          console.log(this.searchArticles);
+          console.log(this.searchArticles)
 
           if (this.currentPage > 1) {
             this.currentPage = 1
@@ -279,6 +279,11 @@ export default {
             return item.length > 0
           })
           this.allPages = filterSliceArray.length
+          if (this.allPages == 1) {
+            this.paginateFlg = false
+          } else {
+            this.paginateFlg = true
+          }
         })
     },
     async getRecommendArticles() {
@@ -312,7 +317,6 @@ export default {
     this.getArticles()
     this.getAllPages()
     this.getRecommendArticles()
-    this.paginateFlg = true
     if (this.$route.query.tag) {
       console.log('クエリパラメータを発見しました')
       this.searchTag()

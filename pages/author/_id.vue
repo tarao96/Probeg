@@ -6,7 +6,7 @@
           <div class="text">
             <div class="author">
               <img :src="author[0].img.url" alt="プロフィール画像" />
-              <p>{{ author[0].name }}</p>
+              <h1>{{ author[0].name }}</h1>
             </div>
           </div>
         </div>
