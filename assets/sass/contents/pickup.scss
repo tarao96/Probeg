@@ -1,6 +1,6 @@
 $limegreen: limegreen;
-$palegreen: #98E698;
-$darkgreen: #228F22;
+$palegreen: #98e698;
+$darkgreen: #228f22;
 $mainColor: #1ac067;
 @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
@@ -34,92 +34,155 @@ $mainColor: #1ac067;
   // }
 }
 .pickup-wrapper {
-  width: 100%;
-  height: 600px;
-  margin: 0 auto;
-  margin-top: 30px;
-  display: flex;
-  .card {
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-    height: 500px;
-    padding: 0px;
-    padding-bottom: 20px;
-    border: 1px solid rgba(182, 178, 178, 0.903);
-    box-shadow: 0 0 8px rgb(123, 122, 122);
-    overflow: hidden;
-    background-color: white;
-    border-radius: 5%;
-    margin: 0px auto;
+  .card-box {
+    width: 100%;
+    height: 600px;
+    margin: 0 auto;
     margin-top: 30px;
-    transition: 1s;
-    a {
-      padding: 0;
-      img {
-        height: 250px;
-        width: 100%;
-        object-fit: center;
-      }
-      img:hover {
-        transition: 0.2s;
-        transform: scale(1.1);
-      }
-    }
-    .article-content {
-      padding: 30px 30px 0px 30px;
-    }
-    .tag {
-      padding: 0 30px;
-    }
-    .text {
+    display: flex;
+    .card {
+      display: flex;
+      flex-direction: column;
+      width: 400px;
+      height: 500px;
       padding: 0px;
-      background-color: #fff;
-      a:hover {
-        opacity: 0.8;
+      padding-bottom: 20px;
+      border: 1px solid rgba(182, 178, 178, 0.903);
+      box-shadow: 0 0 8px rgb(123, 122, 122);
+      overflow: hidden;
+      background-color: white;
+      border-radius: 5%;
+      margin: 0px auto;
+      margin-top: 30px;
+      transition: 1s;
+      a {
+        padding: 0;
+        img {
+          height: 250px;
+          width: 100%;
+          object-fit: center;
+        }
+        img:hover {
+          transition: 0.2s;
+          transform: scale(1.1);
+        }
       }
-      span {
-        display: block;
-        color: rgba(136, 132, 132, 0.8);
-        margin-bottom: 20px;
+      .article-content {
+        padding: 30px 30px 0px 30px;
       }
-      .article-title {
-        margin-bottom: 30px;
-        a {
+      .tag {
+        padding: 0 30px;
+      }
+      .text {
+        padding: 0px;
+        background-color: #fff;
+        a:hover {
+          opacity: 0.8;
+        }
+        span {
+          display: block;
+          color: rgba(136, 132, 132, 0.8);
+          margin-bottom: 20px;
+        }
+        .article-title {
           margin-bottom: 30px;
-          // border: none;
-          color: black;
-          font-size: 1.2rem;
+          a {
+            margin-bottom: 30px;
+            // border: none;
+            color: black;
+            font-size: 1.2rem;
+          }
         }
       }
     }
+  }
+  .paginate-pc {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    .paginate-hole {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid black;
+      cursor: pointer;
+    }
+    .active {
+      background: gray;
+    }
+  }
+  .paginate-sp {
+    display: none;
   }
 }
 
 @media screen and (max-width: 768px) {
   .recommend-wrapper {
-    margin-top: 100px;
     .recommend {
       text-align: center;
       .pick-up {
         padding: 10px;
         padding-right: 20px;
-        font-size: 1.0em;
+        font-size: 1.3em;
       }
     }
   }
   .pickup-wrapper {
     margin-top: 0px;
     height: 500px;
-    .card {
+    .card-box {
+      margin-top: 0;
       height: 400px;
-      a {
-        img {
-          height: 180px;
+      gap: 10px;
+      .card {
+        height: 350px;
+        a {
+          img {
+            height: 150px;
+          }
+        }
+        .article-content {
+          padding: 15px 15px 0 15px;
+        }
+        .text {
+          padding: 0px;
+          background-color: #fff;
+          a:hover {
+            opacity: 0.8;
+          }
+          span {
+            display: block;
+            color: rgba(136, 132, 132, 0.8);
+            margin-bottom: 20px;
+          }
+          .article-title {
+            margin-bottom: 30px;
+            a {
+              margin-bottom: 30px;
+              // border: none;
+              color: black;
+              font-size: 1.0rem;
+            }
+          }
         }
       }
-      .article-content {
-        padding: 15px 15px 0 15px;
+    }
+    .paginate-pc {
+      display: none;
+    }
+    .paginate-sp {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      .paginate-hole {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1px solid black;
+        cursor: pointer;
+      }
+      .active {
+        background: gray;
       }
     }
   }

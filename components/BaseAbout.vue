@@ -29,46 +29,46 @@ export default {}
 </script>
 
 <style lang="scss">
-.about {
-  height: 100%;
-  padding: 50px 0;
-  background: linear-gradient(
-    to right,
-    rgba(83, 102, 212, 0.855),
-    rgb(3, 205, 212)
-  );
-  display: flex;
-  flex-direction: column;
-  color: white;
-  .about-title {
-    text-align: center;
-    margin: 20px auto;
-    width: 80px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #fff;
-    p {
-      font-size: 1.5rem;
-    }
-  }
-  .about-wrapper {
-    width: 60%;
-    margin: 0 auto;
-    text-align: center;
-    p a {
-      color: white;
-      text-decoration: underline;
-    }
-  }
-}
+// .about {
+//   height: 100%;
+//   padding: 50px 0;
+//   background: linear-gradient(
+//     to right,
+//     rgba(83, 102, 212, 0.855),
+//     rgb(3, 205, 212)
+//   );
+//   display: flex;
+//   flex-direction: column;
+//   color: white;
+//   .about-title {
+//     text-align: center;
+//     margin: 20px auto;
+//     width: 80px;
+//     padding-bottom: 10px;
+//     border-bottom: 2px solid #fff;
+//     p {
+//       font-size: 1.5rem;
+//     }
+//   }
+//   .about-wrapper {
+//     width: 60%;
+//     margin: 0 auto;
+//     text-align: center;
+//     p a {
+//       color: white;
+//       text-decoration: underline;
+//     }
+//   }
+// }
 
-@media screen and (max-width: 768px) {
-  .about {
-    .about-wrapper {
-      width: 90%;
-      .pc {
-        display: none;
-      }
-    }
-  }
-}
+// @media screen and (max-width: 768px) {
+//   .about {
+//     .about-wrapper {
+//       width: 90%;
+//       .pc {
+//         display: none;
+//       }
+//     }
+//   }
+// }
 </style>

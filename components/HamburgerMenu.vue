@@ -7,46 +7,48 @@
         <div class="border"></div>
       </div>
     </div>
-    <div class="menu-wrapper" v-show="isShow">
-      <div class="menu">
-        <div class="menu-head" @click="changeShow">
-          <p>MENU</p>
-          <span class="close-btn"></span>
+    <transition>
+      <div class="menu-wrapper">
+        <div class="menu" :class="{'is-active': isShow}">
+          <div class="menu-head" @click="changeShow">
+            <p>MENU</p>
+            <span class="close-btn"></span>
+          </div>
+          <ul class="menu-list">
+            <li class="menu-item">
+              <span @click="movePage('/')">
+                <ion-icon name="home-outline"></ion-icon>
+                Home
+              </span>
+            </li>
+            <li class="menu-item">
+              <span @click="movePage('/tags')">
+                <ion-icon name="pricetags-outline"></ion-icon>
+                Tags
+              </span>
+            </li>
+            <li class="menu-item">
+              <span @click="movePage('/about')">
+                <ion-icon name="book-outline"></ion-icon>
+                About
+              </span>
+            </li>
+            <li class="menu-item">
+              <span @click="movePage('/author/1')">
+                <ion-icon name="person-outline"></ion-icon>
+                Administrator
+              </span>
+            </li>
+            <li class="menu-item">
+              <span @click="movePage('/courses/1')">
+                <ion-icon name="trail-sign-outline"></ion-icon>
+                Courses
+              </span>
+            </li>
+          </ul>
         </div>
-        <ul class="menu-list">
-          <li class="menu-item">
-            <nuxt-link to="/">
-              <ion-icon name="home-outline"></ion-icon>
-              Home
-            </nuxt-link>
-          </li>
-          <li class="menu-item">
-            <nuxt-link to="/tags">
-              <ion-icon name="pricetags-outline"></ion-icon>
-              Tags
-            </nuxt-link>
-          </li>
-          <li class="menu-item">
-            <nuxt-link to="/about">
-              <ion-icon name="book-outline"></ion-icon>
-              About
-            </nuxt-link>
-          </li>
-          <li class="menu-item">
-            <nuxt-link to="/author/1">
-              <ion-icon name="person-outline"></ion-icon>
-              Administrator
-            </nuxt-link>
-          </li>
-          <li class="menu-item">
-            <nuxt-link to="/courses/1">
-              <ion-icon name="trail-sign-outline"></ion-icon>
-              Courses
-            </nuxt-link>
-          </li>
-        </ul>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -60,9 +62,12 @@ export default {
   },
   methods: {
     changeShow() {
-      console.log('表示が切り替わりました。');
-      this.isShow = !this.isShow;
-    }
-  }
+      this.isShow = !this.isShow
+    },
+    movePage(url) {
+      this.isShow = false
+      this.$router.push(url)
+    },
+  },
 }
 </script>

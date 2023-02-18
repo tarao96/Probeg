@@ -163,3 +163,84 @@ $border-color: #bac6d3;
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  #course {
+    .container {
+      width: 90%;
+      .header {
+        flex-direction: column-reverse;
+        gap: 2em;
+        .header-text {
+          width: 100%;
+          h1 {
+            font-size: 1.3em;
+          }
+          p {
+            font-size: 1.0em;
+          }
+          .language-wrapper {
+            width: 100%;
+            flex-direction: column;
+            gap: 10px;
+            .language {
+
+            }
+          }
+        }
+        .header-img {
+          width: 100%;
+          margin-top: 3em;
+        }
+      }
+      .main {
+        padding: 0;
+        .guide {
+          display: none;
+        }
+        .card-wrapper {
+          width: 100%;
+          .card {
+            .step-heading {
+              padding-top: 3px;
+              font-size: 1.2em;
+              margin-right: 30px;
+            }
+            .step-heading::after {
+              display: none;
+            }
+            .description {
+              margin-top: 20px;
+              p {
+                font-size: 0.9em;
+              }
+            }
+            .contents {
+              flex-direction: column;
+              padding: 20px 0;
+              gap: 15px;
+              .contents-img {
+                width: 80%;
+              }
+              .contents-text {
+                width: 80%;
+                span {
+                  font-size: 1.1em;
+                }
+                div {
+                  -webkit-line-clamp: 2;
+                  p {
+                    font-size: 0.9em;
+                  }
+                }
+              }
+              a {
+                margin-top: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

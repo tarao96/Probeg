@@ -7,7 +7,7 @@ $mainColor: #1ac067;
 main {
   .contents {
     width: 100%;
-    margin: 0 auto;
+    margin: 100px auto;
     .container {
       width: 70%;
       margin: 50px auto;
@@ -85,7 +85,7 @@ main {
                   margin-bottom: 30px;
                   // border: none;
                   color: black;
-                  font-size: 1.2rem;
+                  font-size: 1.3rem;
                 }
               }
             }
@@ -178,8 +178,9 @@ main {
             font-size: 15px;
             text-align: center;
             span {
-              font-size: 1.5em;
+              font-size: 2.0em;
               padding: 10px;
+              padding-right: 20px;
             }
             .underline {
               margin-top: 5px;
@@ -212,12 +213,14 @@ main {
             }
           }
           .paginate {
+            .nextPage {
+              width: 80px;
+            }
             .currentPage {
-              font-size: 1.2em;
               left: 40%;
-              span {
-                font-size: 1.5em;
-              }
+            }
+            .prevPage {
+              width: 80px;
             }
           }
         }

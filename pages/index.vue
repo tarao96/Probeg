@@ -166,63 +166,63 @@ export default {
         behavior: 'smooth',
       })
     },
-    // async searchTag(tagName) {
-    //   console.log(tagName)
-    //   await this.$axios
-    //     .get(`${this.$config.apiUrl}/blogs?limit=100`, {
-    //       headers: {
-    //         'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       console.log(res.data.contents)
-    //       const searchResults = res.data.contents.filter((article) => {
-    //         const array = []
-    //         article.category.forEach((item) => {
-    //           if (item.name.indexOf(tagName) !== -1) {
-    //             array.push(item)
-    //           }
-    //         })
-    //         return array.length > 0
-    //       })
+    async searchTag() {
+      console.log('タグ検索')
+      const tagName = this.$route.query.tag
+      await this.$axios
+        .get(`${this.$config.apiUrl}/blogs?limit=100`, {
+          headers: {
+            'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
+          },
+        })
+        .then((res) => {
+          console.log(res.data.contents)
+          const searchResults = res.data.contents.filter((article) => {
+            const array = []
+            article.category.forEach((item) => {
+              if (item.name.indexOf(tagName) !== -1) {
+                array.push(item)
+              }
+            })
+            return array.length > 0
+          })
 
-    //       console.log(searchResults)
+          console.log(searchResults)
 
-    //       const length = 12
-    //       const sliceArray = []
-    //       for (let i = 0; i < searchResults.length; i++) {
-    //         let sliceNumberList = searchResults.slice(
-    //           i * length,
-    //           (i + 1) * length
-    //         )
-    //         sliceArray.push(sliceNumberList)
-    //       }
-    //       console.log(sliceArray)
+          const length = 12
+          const sliceArray = []
+          for (let i = 0; i < searchResults.length; i++) {
+            let sliceNumberList = searchResults.slice(
+              i * length,
+              (i + 1) * length
+            )
+            sliceArray.push(sliceNumberList)
+          }
+          console.log(sliceArray)
 
-    //       // 分割した全体の配列
-    //       this.sliceArray = sliceArray
+          // 分割した全体の配列
+          this.sliceArray = sliceArray
 
-    //       // 検索するごとに全ページ数を更新する
-    //       const filterSliceArray = sliceArray.filter((item) => {
-    //         return item.length > 0
-    //       })
-    //       this.allPages = filterSliceArray.length
+          // 検索するごとに全ページ数を更新する
+          const filterSliceArray = sliceArray.filter((item) => {
+            return item.length > 0
+          })
+          this.allPages = filterSliceArray.length
 
-    //       // 表示する配列
-    //       this.searchArticles = this.sliceArray[this.currentPage - 1]
+          // 表示する配列
+          this.searchArticles = this.sliceArray[this.currentPage - 1]
 
-    //       if (this.currentPage > 1) {
-    //         this.currentPage = 1
-    //       }
+          if (this.currentPage > 1) {
+            this.currentPage = 1
+          }
 
-    //       // 表示コンテンツが12記事以下ならolderボタンを削除する
-    //       if (this.sliceArray[0].length < 12) {
-    //         this.paginateFlg = false
-    //       }
-
-    //       this.scrollTo('article-heading')
-    //     })
-    // },
+          // 表示コンテンツが12記事以下ならolderボタンを削除する
+          if (this.sliceArray[0].length < 12) {
+            this.paginateFlg = false
+          }
+          this.scrollTo('article-heading')
+        })
+    },
     prevPage() {
       this.currentPage += 1
     },
@@ -253,16 +253,6 @@ export default {
         .then((res) => {
           this.articles = res.data.contents
           this.searchArticles = res.data.contents
-        })
-
-      await this.$axios
-        .get(`${this.$config.apiUrl}/categories`, {
-          headers: {
-            'X-MICROCMS-API-KEY': `${this.$config.apiKey}`,
-          },
-        })
-        .then((res) => {
-          this.tags = res.data.contents
         })
     },
     async getAllPages() {
@@ -322,6 +312,9 @@ export default {
     this.getAllPages()
     this.getRecommendArticles()
     this.paginateFlg = true
+    if (this.$route.query.tag) {
+      this.searchTag()
+    }
   },
 }
 </script>
