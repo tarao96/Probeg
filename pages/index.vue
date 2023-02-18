@@ -313,6 +313,7 @@ export default {
     this.getRecommendArticles()
     this.paginateFlg = true
     if (this.$route.query.tag) {
+      console.log('クエリパラメータを発見しました')
       this.searchTag()
     }
   },
