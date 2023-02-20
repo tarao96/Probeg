@@ -232,10 +232,7 @@ $border-color: #bac6d3;
                   font-size: 1.1em;
                 }
                 div {
-                  -webkit-line-clamp: 2;
-                  p {
-                    font-size: 0.9em;
-                  }
+                  display: none;
                 }
               }
               a {
