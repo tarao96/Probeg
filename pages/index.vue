@@ -118,6 +118,15 @@ export default {
       ],
     }
   },
+  mounted() {
+    this.getArticles()
+    this.getAllPages()
+    this.getRecommendArticles()
+    if (this.$route.query.tag) {
+      console.log('クエリパラメータを発見しました')
+      this.searchTag()
+    }
+  },
   watch: {
     async currentPage(newValue) {
       if (this.sliceArray.length > 0) {
@@ -155,6 +164,10 @@ export default {
             }
 
             this.scrollTo('article-heading')
+            window.location.reload()
+          })
+          .catch((err) => {
+            console.log(err)
           })
       }
     },
@@ -167,7 +180,6 @@ export default {
       })
     },
     async searchTag() {
-      console.log('タグ検索')
       const tagName = this.$route.query.tag
       await this.$axios
         .get(`${this.$config.apiUrl}/blogs?limit=100`, {
@@ -198,7 +210,6 @@ export default {
             )
             sliceArray.push(sliceNumberList)
           }
-          console.log(sliceArray)
 
           // 分割した全体の配列
           this.sliceArray = sliceArray
@@ -312,15 +323,6 @@ export default {
     moveCourseShow(courseId) {
       this.$router.push(`/courses/${courseId}`)
     },
-  },
-  mounted() {
-    this.getArticles()
-    this.getAllPages()
-    this.getRecommendArticles()
-    if (this.$route.query.tag) {
-      console.log('クエリパラメータを発見しました')
-      this.searchTag()
-    }
   },
 }
 </script>
