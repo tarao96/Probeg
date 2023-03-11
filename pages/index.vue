@@ -119,13 +119,13 @@ export default {
     }
   },
   mounted() {
-    this.getArticles()
+    if (this.$route.query.tag) {
+      this.searchTag()
+    } else {
+      this.getArticles()
+    }
     this.getAllPages()
     this.getRecommendArticles()
-    if (this.$route.query.tag) {
-      console.log('クエリパラメータを発見しました')
-      this.searchTag()
-    }
   },
   watch: {
     async currentPage(newValue) {
@@ -133,7 +133,6 @@ export default {
         // 検索した場合
         if (this.sliceArray[newValue - 1]) {
           this.searchArticles = this.sliceArray[newValue - 1]
-          console.log(this.sliceArray, newValue)
           this.paginateFlg =
             this.sliceArray[newValue].length == 0 ? false : true
         }
@@ -151,7 +150,6 @@ export default {
             }
           )
           .then((res) => {
-            console.log(res.data.contents)
             this.articles = res.data.contents.slice(0, 12)
             this.searchArticles = res.data.contents.slice(0, 12)
 
@@ -188,7 +186,6 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.data.contents)
           const searchResults = res.data.contents.filter((article) => {
             const array = []
             article.category.forEach((item) => {
@@ -198,8 +195,6 @@ export default {
             })
             return array.length > 0
           })
-
-          console.log(searchResults)
 
           const length = 12
           const sliceArray = []
@@ -215,14 +210,13 @@ export default {
           this.sliceArray = sliceArray
 
           // 検索するごとに全ページ数を更新する
-          const filterSliceArray = sliceArray.filter((item) => {
-            return item.length > 0
-          })
-          this.allPages = filterSliceArray.length
+          // const filterSliceArray = sliceArray.filter((item) => {
+          //   return item.length > 0
+          // })
+          // this.allPages = filterSliceArray.length
 
           // 表示する配列
           this.searchArticles = this.sliceArray[this.currentPage - 1]
-          console.log(this.searchArticles)
 
           if (this.currentPage > 1) {
             this.currentPage = 1
