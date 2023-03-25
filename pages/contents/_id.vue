@@ -37,12 +37,12 @@
         </div>
       </div>
     </article>
-    <div class="latest-articles">
+    <!-- <div class="latest-articles">
       <latest-articles :articles="latestArticles"></latest-articles>
     </div>
     <div class="related-articles" v-if="articles[0]">
       <related-articles :articles="articles"></related-articles>
-    </div>
+    </div> -->
   </div>
 </template>
 
