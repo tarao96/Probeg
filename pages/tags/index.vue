@@ -9,23 +9,17 @@
             </div>
           </div>
         </div>
-        <div class="tag-wrapper">
-          <div v-for="tag in tags" :key="tag.id" class="tag-list" @click="searchTag(tag.name)">
+        <div class="tag-wrapper" v-for="tag in tags" :key="tag.id">
+          <div
+            class="tag-list"
+            v-if="tag.count > 0"
+            @click="searchTag(tag.name)"
+          >
             <div class="tag-name">
               <ion-icon name="pricetag-outline"></ion-icon>
               <span>{{ tag.name }}</span>
             </div>
-            <span v-if="tag.name == 'HTML'">{{ htmlCount }}</span>
-            <span v-if="tag.name == 'CSS'">{{ cssCount }}</span>
-            <span v-if="tag.name == 'JavaScript'">{{ javascriptCount }}</span>
-            <span v-if="tag.name == 'Vue.js'">{{ vueCount }}</span>
-            <span v-if="tag.name == 'Nuxt.js'">{{ nuxtCount }}</span>
-            <span v-if="tag.name == 'Laravel'">{{ laravelCount }}</span>
-            <span v-if="tag.name == 'GoogleAppsScript'">{{
-              googleappsscriptCount
-            }}</span>
-            <span v-if="tag.name == 'LINE Bot'">{{ linebotCount }}</span>
-            <span v-if="tag.name == 'VSCode'">{{ vscodeCount }}</span>
+            <span v-if="tag.count">{{ tag.count }}</span>
           </div>
         </div>
       </div>
@@ -56,18 +50,9 @@ export default {
     return {
       tags: [],
       articles: [],
-      htmlCount: 0,
-      cssCount: 0,
-      javascriptCount: 0,
-      vueCount: 0,
-      nuxtCount: 0,
-      laravelCount: 0,
-      googleappsscriptCount: 0,
-      linebotCount: 0,
-      vscodeCount: 0
     }
   },
-  mounted() {
+  created() {
     const tagArray = [
       'HTML',
       'CSS',
@@ -77,58 +62,33 @@ export default {
       'Laravel',
       'GoogleAppsScript',
       'LINE Bot',
-      'VSCode'
+      'VSCode',
     ]
     for (let i = 0; i < tagArray.length; i++) {
-      this.countTagArticles(tagArray[i])
-    }
-  },
-  methods: {
-    async countTagArticles(tagName) {
+      // タグ名と一致するカテゴリの記事を抽出
       const filterArticles = this.articles.filter((item) => {
         const array = item.category.filter((item) => {
-          return item.name == tagName
+          return item.name == tagArray[i]
         })
         return array[0] != null
       })
-      switch (tagName) {
-        case 'HTML':
-          this.htmlCount = filterArticles.length
-          break
-        case 'CSS':
-          this.cssCount = filterArticles.length
-          break
-        case 'JavaScript':
-          this.javascriptCount = filterArticles.length
-          break
-        case 'Vue.js':
-          this.vueCount = filterArticles.length
-          break
-        case 'Nuxt.js':
-          this.nuxtCount = filterArticles.length
-          break
-        case 'Laravel':
-          this.laravelCount = filterArticles.length
-          break
-        case 'GoogleAppsScript':
-          this.googleappsscriptCount = filterArticles.length
-          break
-        case 'LINE Bot':
-          this.linebotCount = filterArticles.length
-          break
-        case 'VSCode':
-          this.vscodeCount = filterArticles.length
-          break
-      }
-    },
+      this.tags.forEach((item) => {
+        if (item.name == tagArray[i]) {
+          item.count = filterArticles.length
+        }
+      })
+    }
+    console.log(this.tags)
+  },
+  methods: {
     async searchTag(tagName) {
       this.$router.push({
         path: '/',
         query: {
-          'tag': tagName
-        }
-      });
-    }
+          tag: tagName,
+        },
+      })
+    },
   },
 }
 </script>

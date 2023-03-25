@@ -118,7 +118,7 @@ export default {
       ],
     }
   },
-  mounted() {
+  created() {
     if (this.$route.query.tag) {
       this.searchTag()
     } else {
@@ -175,6 +175,7 @@ export default {
       const element = document.getElementById(id)
       element.scrollIntoView({
         behavior: 'smooth',
+        block: 'start',
       })
     },
     async searchTag() {
@@ -226,8 +227,8 @@ export default {
           if (this.sliceArray[0].length < 12) {
             this.paginateFlg = false
           }
-          this.scrollTo('article-heading')
         })
+        this.scrollTo('article-heading');
     },
     prevPage() {
       this.currentPage += 1
