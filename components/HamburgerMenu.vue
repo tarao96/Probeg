@@ -39,12 +39,12 @@
                 Administrator
               </span>
             </li>
-            <li class="menu-item">
+            <!-- <li class="menu-item">
               <span @click="movePage('/courses/1')">
                 <ion-icon name="trail-sign-outline"></ion-icon>
                 Courses
               </span>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>

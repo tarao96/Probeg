@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <div class="paginate-pc">
+      <div class="paginate-pc" style="display: none;">
         <div
           class="paginate-hole"
           id="pc-hole1"
