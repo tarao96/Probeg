@@ -4,6 +4,7 @@ $darkgreen: #228F22;
 $mainColor: #1ac067;
 
 .content {
+  margin-top: 100px;
   article {
     width: 90%;
     padding: 0 auto;
@@ -139,6 +140,11 @@ $mainColor: #1ac067;
           img {
             width: 60%;
             object-fit: cover;
+          }
+          a {
+            display: inline-block;
+            width: 90%;
+            word-wrap:break-word;
           }
           ul {
             margin-left: 20px;
@@ -284,6 +290,20 @@ $mainColor: #1ac067;
       .article {
         h2::after {
           width: 90px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .content {
+    article {
+      .card {
+        .heading {
+          h1.title {
+            font-size: 1.2em;
+          }
         }
       }
     }
