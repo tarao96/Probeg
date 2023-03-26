@@ -1,6 +1,6 @@
 $limegreen: limegreen;
-$palegreen: #98E698;
-$darkgreen: #228F22;
+$palegreen: #98e698;
+$darkgreen: #228f22;
 $mainColor: #1ac067;
 @import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
 
@@ -8,6 +8,28 @@ main {
   .contents {
     width: 100%;
     margin: 50px auto;
+    #stalker {
+      pointer-events: none;
+      position: fixed;
+      top: -8px; //座標調節（カーソル位置と円の中心を合わせる）
+      left: -8px; //座標調節（カーソル位置と円の中心を合わせる）
+      width: 20px; //マウスストーカーの直径
+      height: 20px; //マウスストーカーの直径
+      background: #1ac067b7;
+      border-radius: 50%;
+      transform: translate(0, 0);
+      transition: transform 0.2s; //ちょっと遅れてついてくるように
+      transition-timing-function: ease-out;
+      z-index: 999;
+      &.hov_ {
+        top: -32px; //大きさに合わせて座標調節
+        left: -32px; //大きさに合わせて座標調節
+        width: 40px;
+        height: 40px;
+        transition: 0.2s;
+        background: rgba(255, 0, 0, 0.4);
+      }
+    }
     .container {
       width: 70%;
       margin: 50px auto;
@@ -165,7 +187,8 @@ main {
   }
 }
 
-@media screen and (max-width: 1440px) { // MacBook 13inch用のブレークポイント
+@media screen and (max-width: 1440px) {
+  // MacBook 13inch用のブレークポイント
   main {
     .contents {
       .container {
@@ -193,7 +216,7 @@ main {
             font-size: 15px;
             text-align: center;
             span {
-              font-size: 2.0em;
+              font-size: 2em;
               padding: 10px;
               padding-right: 20px;
             }
