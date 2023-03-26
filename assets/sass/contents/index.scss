@@ -165,6 +165,21 @@ main {
   }
 }
 
+@media screen and (max-width: 1440px) { // MacBook 13inch用のブレークポイント
+  main {
+    .contents {
+      .container {
+        width: 90%;
+        .article-wrapper {
+          .row {
+            gap: 30px;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
   main {
     .contents {
