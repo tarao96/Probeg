@@ -105,4 +105,9 @@ export default {
     background: rgba(255, 0, 0, 0.4);
   }
 }
+@media screen and (max-width: 768px) {
+  #stalker {
+    display: none;
+  }
+}
 </style>
