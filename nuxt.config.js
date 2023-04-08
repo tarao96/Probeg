@@ -7,12 +7,20 @@ export default {
     title: 'Probeg',
     htmlAttrs: {
       lang: 'ja',
+      prefix: 'og: http://ogp.me/ns#'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '初学者にもわかりやすくをモットーにプログラミングの技術情報を発信しています。確実なスキルアップにつながるように丁寧に記事作成しています。' },
       { name: 'format-detection', content: 'telephone=no' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'Probeg' },
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:url', property: 'og:url', content: 'https://probeg-blog.com' },
+      { hid: 'og:title', property: 'og:title', content: 'Probeg' },
+      { hid: 'og:description', property: 'og:description', content: '初学者にもわかりやすくをモットーにプログラミングの技術情報を発信しています。確実なスキルアップにつながるように丁寧に記事作成しています。' },
+      { hid: 'og:image', property: 'og:image', content: '/img/Probeg.png' },
+      { name: 'twitter:card', content: 'summary' }//　twitterの画像サイズ
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
