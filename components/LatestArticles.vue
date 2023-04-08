@@ -74,7 +74,7 @@ export default {
       border: 1px solid rgba(182, 178, 178, 0.903);
       box-shadow: 0 0 8px rgb(123, 122, 122);
       overflow: hidden;
-      background-color: white;
+      background-color: #fff;
       border-radius: 5%;
       a {
         padding: 0;

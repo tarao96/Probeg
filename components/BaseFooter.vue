@@ -20,7 +20,7 @@ footer {
   align-items: center;
   justify-content: center;
   p {
-    color: white;
+    color: #fff;
   }
 }
 </style>

@@ -24,7 +24,7 @@ $blue: #1940a5;
     .border {
       width: 20px;
       height: 2px;
-      background: white;
+      background: #fff;
     }
   }
 }
@@ -50,7 +50,7 @@ $blue: #1940a5;
       position: relative;
       cursor: pointer;
       p {
-        color: white;
+        color: #fff;
       }
       .close-btn {
         display: block;
@@ -68,7 +68,7 @@ $blue: #1940a5;
         left: 50%;
         width: 2px; /* 棒の幅（太さ） */
         height: 20px; /* 棒の高さ */
-        background: white;
+        background: #fff;
       }
       .close-btn::before {
         transform: translate(-50%, -50%) rotate(45deg);
@@ -85,7 +85,7 @@ $blue: #1940a5;
         span {
           display: flex;
           align-items: center;
-          color: white;
+          color: #fff;
           font-size: 1.2em;
           cursor: pointer;
           gap: 20px;
