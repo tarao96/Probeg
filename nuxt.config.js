@@ -19,7 +19,7 @@ export default {
       { hid: 'og:url', property: 'og:url', content: 'https://probeg-blog.com' },
       { hid: 'og:title', property: 'og:title', content: 'Probeg' },
       { hid: 'og:description', property: 'og:description', content: '初学者にもわかりやすくをモットーにプログラミングの技術情報を発信しています。確実なスキルアップにつながるように丁寧に記事作成しています。' },
-      { hid: 'og:image', property: 'og:image', content: 'static/img/Probeg.png' },
+      { hid: 'og:image', property: 'og:image', content: 'https://probeg-blog.com/img/Probeg.png' },
       { name: 'twitter:card', content: 'summary' }//　twitterの画像サイズ
     ],
     link: [
