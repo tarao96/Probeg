@@ -74,4 +74,14 @@ export default {
     apiUrl: process.env.API_URL,
     apiKey: process.env.API_KEY
   },
+
+  router: {
+    extendRoutes (routes, resolve) {
+      routes.push({
+        name: 'custom',
+        path: '*',
+        component: resolve(__dirname, 'pages/errors/404.vue')
+      })
+    }
+  }
 }

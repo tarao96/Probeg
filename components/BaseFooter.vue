@@ -12,12 +12,15 @@ export default {
 
 <style lang="scss">
 footer {
-  height: 80px;
+  height: 10vh;
   text-align: center;
   background-color: #228F22;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   p {
     color: white;
-    padding-top: 30px;
   }
 }
 </style>
