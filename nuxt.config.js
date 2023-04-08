@@ -83,5 +83,9 @@ export default {
         component: resolve(__dirname, 'pages/errors/404.vue')
       })
     }
+  },
+
+  generate: {
+    fallback: true,
   }
 }
