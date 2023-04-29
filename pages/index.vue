@@ -123,8 +123,8 @@ export default {
       this.searchTag()
     } else {
       this.getArticles()
+      this.getAllPages()
     }
-    this.getAllPages()
     this.getRecommendArticles()
   },
   watch: {
@@ -162,7 +162,7 @@ export default {
             }
 
             this.scrollTo('article-heading')
-            window.location.reload()
+            // window.location.reload()
           })
           .catch((err) => {
             console.log(err)
@@ -225,7 +225,8 @@ export default {
 
           // 表示コンテンツが12記事以下ならolderボタンを削除する
           if (this.sliceArray[0].length < 12) {
-            this.paginateFlg = false
+            this.paginateFlg = false;
+            this.allPages = 1;
           }
         })
       this.scrollTo('article-heading')
